@@ -1,18 +1,24 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Delete } from '@nestjs/common';
 
 import { ProductsService } from 'src/modules/products/application/services/products/products.service';
 
 import { CreateProductDTO } from '../../dtos/products/create-product.dto';
 
 import { CreateProductUseCase } from 'src/modules/products/application/usecases/products/create-product.usecase';
+import { DeleteProductDTO } from '../../dtos/products/delete-product.dto';
+import { DeleteProductUseCase } from 'src/modules/products/application/usecases/products';
 
 
 @Controller('products')
 export class ProductController {
 
   constructor(
+
     private readonly productsService: ProductsService,
+
     private readonly createProductUseCase: CreateProductUseCase,
+    private readonly deleteProductUseCase:
+    DeleteProductUseCase
   ) {}
 
   @Post()
@@ -28,9 +34,21 @@ export class ProductController {
   }
 
   @Get()
-  async findAllUsers(){
-    return 
+  async findAllProducts(){
+    return this.findAllProducts()
   }
+
+  @Delete()
+  async deleteProductById(@Body() deleteProductDTO: DeleteProductDTO){
+    try{
+      const product = await this.deleteProductUseCase.execute(deleteProductDTO)
+      return product;
+    }catch(error){
+        console.log("deletePoductById Controller :::::::", error)
+        throw error;
+    }
+  }
+
 //   @Get()
 //   findAll() {
 //     return this.productsService.findAll();
