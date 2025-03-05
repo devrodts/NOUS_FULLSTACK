@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { Product } from "src/modules/products/domain/entities/products/products.entity";
 import { CreateProductDTO } from "src/modules/products/domain/interface/dtos/products/create-product.dto";
 import { DeleteProductDTO } from "../../../interface/dtos/products/delete-product.dto";
+import { GetProductByIdDTO } from "../../../interface/dtos/products/get-product-by-id.dto";
 
 @Injectable()
 export class ProductsRepository{
@@ -27,6 +28,25 @@ export class ProductsRepository{
            return this.deleteProductById(dto)
         }catch(error){
             console.log("Delete Product By ID ProductsRepository ::::::::: ", error)
+            throw error;
+        }
+    }
+
+    async findAllProducts(){
+        try{
+            return this.findAllProducts()
+        }catch(error){
+            console.log("TRY findAllPRoducts Repository :::::::::::", error)
+            throw error;
+        }     
+    }
+
+    async getProductById(dto: GetProductByIdDTO){
+        try{
+            const product = await this.getProductById(dto);
+            return product;
+        }catch(error){
+            console.log("getProductById Repository :::::", error)
             throw error;
         }
     }

@@ -6,8 +6,10 @@ export type ProductDocument = HydratedDocument<Product>;
 
 @Schema({ timestamps: true })
 export class Product {
-    // @Prop({ type: String, default: () => uuidv4(), unique: true })
-    // id: string;
+
+  @Prop({ type: String, default: () => uuidv4(), unique: true })
+  id: string;
+  
   @Prop({ type: String, required: true })
   name: string;
 
