@@ -4,7 +4,7 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    "name": "iPhone 17 Max",
-    "price": 10.000,
-    "description": "iPhone Max-Forwards: 256GB"
+    "name": "MacBook Pro 2025",
+    "price": 16.000,
+    "description": "MacBook Pro 2025"
 }
