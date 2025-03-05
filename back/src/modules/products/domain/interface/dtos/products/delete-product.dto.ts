@@ -1,3 +1,3 @@
 export class DeleteProductDTO{
-    id:string;
+   id:string;
 }
