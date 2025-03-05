@@ -1,0 +1,10 @@
+### Create a product
+
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "name": "MacBook Pro 2025",
+    "price": 16.000,
+    "description": "MacBook Pro 2025"
+}

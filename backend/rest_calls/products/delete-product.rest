@@ -1,0 +1,3 @@
+### Delete Product By Id
+
+DELETE http://localhost:3000/products/28a3582b-223e-4bd2-a5ed-aba23c45af2e
