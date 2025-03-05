@@ -9,6 +9,6 @@ export class CreateProductUseCase {
   constructor(private readonly productRepository: ProductsRepository) {}
 
   async execute(dto: CreateProductDTO): Promise<Product> {
-    return this.productRepository.createUser(dto);
+    return this.productRepository.createProduct(dto)
   }
 }

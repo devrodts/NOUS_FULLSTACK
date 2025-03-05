@@ -1,0 +1,3 @@
+### Get Product By ID
+
+GET http://localhost:3000/products/67c79f0b718816d383544209
