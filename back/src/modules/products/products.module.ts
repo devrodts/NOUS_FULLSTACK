@@ -5,13 +5,25 @@ import { ProductController } from './domain/interface/controllers/products/produ
 import { ProductsRepository } from './domain/infra/repositories/products/products.repository';
 import { CreateProductUseCase } from './application/usecases/products/create-product.usecase';
 import { ProductsService } from './application/services/products/products.service';
+import { 
+  DeleteProductUseCase,
+  GetAllProductsUseCase,
+  GetProductByIdUseCase
+ } from './application/usecases/products';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
   ],
   controllers: [ProductController],
-  providers: [ProductsRepository, CreateProductUseCase, ProductsService],
+  providers: [
+    ProductsRepository,
+    DeleteProductUseCase,
+    GetAllProductsUseCase,
+    CreateProductUseCase, 
+    GetProductByIdUseCase,
+    ProductsService
+  ],
   exports: [ProductsRepository],
 })
 
