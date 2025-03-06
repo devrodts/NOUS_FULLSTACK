@@ -1,5 +1,5 @@
 "use client"
-import { ProductInterface } from "@/app/interfaces/product"
+import { ProductInterface } from "@/interfaces/product"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Box, TextField } from "@mui/material"
 import Link from "next/link"
 import AddModal from "../AddModal/AddModal"

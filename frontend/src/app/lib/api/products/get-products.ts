@@ -1,4 +1,4 @@
-import { ProductInterface } from "@/app/interfaces/product";
+import { ProductInterface } from "@/interfaces/product";
 import { FailToGetProduct } from "./errors/fail-get-product";
 
 export async function getProducts(): Promise<ProductInterface[]>{

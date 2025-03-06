@@ -1,4 +1,4 @@
-import { ProductInterface } from "@/app/interfaces"
+import { ProductInterface } from "@/interfaces"
 import { FailToAddProduct } from "./errors"
 
 export async function addProduct(product: ProductInterface){
