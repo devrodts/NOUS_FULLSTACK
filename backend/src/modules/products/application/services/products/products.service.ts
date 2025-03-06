@@ -13,7 +13,7 @@ export class ProductsService {
   }
 
   deleteProductById(dto: DeleteProductDTO){
-    return this.productsRepository.deleteProductById(dto)
+    return this.productsRepository.deleteProductById({id: dto.id})
   }
 
   findAllProducts(){

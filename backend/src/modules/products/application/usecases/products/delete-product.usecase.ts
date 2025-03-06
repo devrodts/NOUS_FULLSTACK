@@ -13,6 +13,7 @@ export class DeleteProductUseCase{
     async execute(dto: DeleteProductDTO): Promise<any>{
         try{
             const result = await this.productsRepository.deleteProductById({id: dto.id});
+            console.log("Delete Product Use Case :::::", result)
             if(!result){
                 console.log("Failed to Delete The Product at Delete Product Use Case :::::", result)
             }

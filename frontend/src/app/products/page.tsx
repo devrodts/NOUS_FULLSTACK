@@ -4,6 +4,7 @@ import { useProductContext } from "@/context/ProductContext/ProductContext"
 import { useEffect } from "react"
 import ProductList from "@/components/ProductList/ProductList"
 import getProducts from "@/context/ProductContext/get-all-products"
+import LinearLoading from "@/components/LinearLoading/LinearLoading"
 
 export default function ProductsPage() {
   const { state, dispatch } = useProductContext(); 
@@ -12,7 +13,13 @@ export default function ProductsPage() {
     getProducts(dispatch);
   }, [dispatch]);
 
-  if (loading) return <div>Carregando...</div>;
+  if (loading) return (
+    <>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '50px' }}>
+      <LinearLoading />
+    </div>
+    </>
+  )
 
   if (error) return <div>{error}</div>; 
 
