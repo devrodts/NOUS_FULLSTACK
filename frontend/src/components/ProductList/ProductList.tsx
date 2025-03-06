@@ -8,9 +8,10 @@ import FileUploadButton from "../atoms/FileUploadButton/FileUploadButton"
 import { getProducts } from "@/app/lib/api/products/get-products"
 import deleteProductById from "@/context/ProductContext/delete-product-by-id"
 import { useProductContext } from "@/context/ProductContext/ProductContext"
+import LinearLoading from "../LinearLoading/LinearLoading"
 
 export default function ProductList({ products }: { products: ProductInterface[] }) {
-    const { dispatch } = useProductContext();
+    const { state, dispatch } = useProductContext();
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
@@ -30,11 +31,16 @@ export default function ProductList({ products }: { products: ProductInterface[]
       })();
     },[products])
 
-    const handleDelete = (id: string) => {
-      deleteProductById(id, dispatch);
+    const handleDelete = async (id: string) => {
+      await deleteProductById(id, dispatch);
     };
   return (
-    <div>
+    <>
+      {state.loading && <>
+        <LinearLoading/>
+      </>}
+    {!state.loading && <>
+      <div>
       <h1>Products</h1>
       <Button
         onClick={handleOpen}
@@ -113,6 +119,8 @@ export default function ProductList({ products }: { products: ProductInterface[]
         </Table>
       </TableContainer>
     </div>
+    </>}
+    </>
   )
 }
 

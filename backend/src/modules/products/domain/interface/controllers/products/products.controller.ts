@@ -74,18 +74,18 @@ export class ProductController {
       throw error;
     }
   }
-
+  
   @Delete(':id')
-  async deleteProductById(@Param('id') dto: DeleteProductDTO){
+  async deleteProductById(@Param('id') id: string){
     try{
-      const product = await this.deleteProductUseCase.execute({id: dto.id})
+      const product = await this.deleteProductUseCase.execute({ id });
       if(!product){
         console.log("Product not found :::::", product)
         return null;
       }
       return product;
     }catch(error){
-        console.log("deletePoductById Controller ::::::: Catch", error)
+        console.log("deleteProductById Controller ::::::: Catch", error)
         throw error;
     }
   }

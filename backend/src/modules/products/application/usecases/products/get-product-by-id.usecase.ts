@@ -9,6 +9,17 @@ export class GetProductByIdUseCase{
     ){}
 
     async execute(dto: GetProductByIdDTO){
-        return this.productsService.getProductById(dto)
+        try{
+            const product = await this.productsService.getProductById(dto)
+            if(!product){
+                console.log("Product not found :::::", product)
+                return null;
+            }
+            return product;
+ 
+        }catch(error){
+            console.log("GetProductByIdUseCase :::::", error)
+            throw error;
+        }
     }
 }
