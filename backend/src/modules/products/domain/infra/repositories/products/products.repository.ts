@@ -26,11 +26,14 @@ export class ProductsRepository{
     async deleteProductById(dto: DeleteProductDTO){
 
         try{
-           const result = await this.productModel.findOneAndDelete(dto)
-           if(!result){
-                console.log("deleteProductById REPOSITORY :::::", result)
+           const product = await this.productModel.findById(dto.id)
+           const deletedProduct = await this.productModel.findByIdAndDelete(dto.id)
+           
+           console.log("deleteProductById REPOSITORY :::::", product)
+           if(!deletedProduct){
+                console.log("deleteProductById REPOSITORY :::::", deletedProduct)
            }
-           return result;
+           return deletedProduct;
         }catch(error){
             console.log("Delete Product By ID ProductsRepository ::::::::: ", error)
             throw error;
