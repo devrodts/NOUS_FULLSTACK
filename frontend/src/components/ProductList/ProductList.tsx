@@ -6,10 +6,11 @@ import AddModal from "../AddModal/AddModal"
 import { useEffect, useState } from "react"
 import FileUploadButton from "../atoms/FileUploadButton/FileUploadButton"
 import { getProducts } from "@/app/lib/api/products/get-products"
-
+import deleteProductById from "@/context/ProductContext/delete-product-by-id"
+import { useProductContext } from "@/context/ProductContext/ProductContext"
 
 export default function ProductList({ products }: { products: ProductInterface[] }) {
-
+    const { dispatch } = useProductContext();
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
@@ -29,6 +30,9 @@ export default function ProductList({ products }: { products: ProductInterface[]
       })();
     },[products])
 
+    const handleDelete = (id: string) => {
+      deleteProductById(id, dispatch);
+    };
   return (
     <div>
       <h1>Products</h1>
@@ -71,7 +75,7 @@ export default function ProductList({ products }: { products: ProductInterface[]
             </Box>
         </form>
       </AddModal>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ marginTop: "20px" }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -83,21 +87,23 @@ export default function ProductList({ products }: { products: ProductInterface[]
           </TableHead>
           <TableBody>
             {products.map((product) => (
-              <TableRow key={product._id}>
+              <TableRow key={product.id}>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>${product.price.toFixed(2)}</TableCell>
                 <TableCell>{product.description}</TableCell>
                 <TableCell>
                   <Button
                     component={Link}
-                    href={`/products/${product._id}/edit`}
+                    href={`/products/${product.id}/edit`}
                     variant="outlined"
                     size="small"
                     style={{ marginRight: "10px" }}
                   >
                     Edit
                   </Button>
-                  <Button variant="outlined" color="secondary" size="small">
+                  <Button
+                    onClick={() => handleDelete(product.id)}
+                    variant="outlined" color="secondary" size="small">
                     Delete
                   </Button>
                 </TableCell>
