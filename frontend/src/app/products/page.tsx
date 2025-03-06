@@ -1,19 +1,20 @@
+"use client"
+
+import { useProductContext } from "@/context/ProductContext/ProductContext"
+import { useEffect } from "react"
 import ProductList from "@/components/ProductList/ProductList"
-import { fetchFromAPI } from "@/app/lib/api"
+import getProducts from "@/context/ProductContext/get-all-products"
 
-export const revalidate = 60
+export default function ProductsPage() {
+  const { state, dispatch } = useProductContext(); 
+  const { products, loading, error } = state;
+  useEffect(() => {
+    getProducts(dispatch);
+  }, [dispatch]);
 
-async function getProducts() {
-  try {
-    return await fetchFromAPI("products")
-  } catch (error) {
-    console.error('Failed to fetch products ::: ProductsPage', error);
-    return []
-  }
+  if (loading) return <div>Carregando...</div>;
+
+  if (error) return <div>{error}</div>; 
+
+  return <ProductList products={products} />;
 }
-
-export default async function ProductsPage() {
-  const products = await getProducts()
-  return <ProductList products={products} />
-}
-

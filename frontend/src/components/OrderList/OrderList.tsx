@@ -1,6 +1,6 @@
 "use client"
 
-import { OrderInterface } from "@/app/interfaces/order"
+import { OrderInterface } from "@/interfaces/order.interface"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material"
 import Link from "next/link"
 // import { useEffect } from "react";

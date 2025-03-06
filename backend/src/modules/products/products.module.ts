@@ -8,7 +8,8 @@ import { ProductsService } from './application/services/products/products.servic
 import { 
   DeleteProductUseCase,
   GetAllProductsUseCase,
-  GetProductByIdUseCase
+  GetProductByIdUseCase,
+  UpdateProductByIdUseCase
  } from './application/usecases/products';
 
 @Module({
@@ -22,6 +23,7 @@ import {
     GetAllProductsUseCase,
     CreateProductUseCase, 
     GetProductByIdUseCase,
+    UpdateProductByIdUseCase,
     ProductsService
   ],
   exports: [ProductsRepository],
