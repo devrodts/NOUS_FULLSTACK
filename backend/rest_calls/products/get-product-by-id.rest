@@ -1,3 +1,3 @@
 ### Get Product By ID
 
-GET http://localhost:3000/products/"0bbac43c-bf86-49a0-ba04-953579991bd1
+GET http://localhost:3000/products/67c79e323a27ce5850a83293

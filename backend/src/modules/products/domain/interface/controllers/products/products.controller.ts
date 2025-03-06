@@ -5,6 +5,7 @@ import {
   Get, 
   Delete,
   Param,
+  Put,
 } from '@nestjs/common';
 
 import { ProductsService } from 'src/modules/products/application/services/products/products.service';
@@ -13,7 +14,9 @@ import { CreateProductDTO } from '../../dtos/products/create-product.dto';
 
 import { CreateProductUseCase } from 'src/modules/products/application/usecases/products/create-product.usecase';
 import { DeleteProductDTO } from '../../dtos/products/delete-product.dto';
-import { DeleteProductUseCase } from 'src/modules/products/application/usecases/products';
+import { DeleteProductUseCase, GetProductByIdUseCase } from 'src/modules/products/application/usecases/products';
+import { GetProductByIdDTO } from '../../dtos/products';
+import { UpdateProductByIdUseCase } from 'src/modules/products/application/usecases/products/update-product-by-id.usecase';
 
 
 @Controller('products')
@@ -25,7 +28,9 @@ export class ProductController {
 
     private readonly createProductUseCase: CreateProductUseCase,
     private readonly deleteProductUseCase:
-    DeleteProductUseCase
+    DeleteProductUseCase,
+    private readonly getProductByIdUseCase: GetProductByIdUseCase,
+    private readonly updateProductByIdUseCase: UpdateProductByIdUseCase
   ) {}
 
   @Post()
@@ -41,8 +46,17 @@ export class ProductController {
   }
 
   @Get(':id') 
-  findProductById(@Param('id') id: string){
-    return this.productsService.getProductById({ id });
+  async findProductById(@Param('id') id: string){
+    try{
+      const product = await this.getProductByIdUseCase.execute({id})
+      if(!product){
+        console.log("Product not found")
+      }
+      return product;
+    }catch(e){
+      console.log("Ocorreu um erro findProductById :::::: Controller Catch", e)
+      throw e;
+    }
   }
 
 
@@ -62,20 +76,33 @@ export class ProductController {
     }
   }
 
-  @Delete()
-  async deleteProductById(@Body() deleteProductDTO: DeleteProductDTO){
+  @Delete(':id')
+  async deleteProductById(@Param('id') dto: DeleteProductDTO){
     try{
-      const product = await this.deleteProductUseCase.execute(deleteProductDTO)
+      const product = await this.deleteProductUseCase.execute({id: dto.id})
+      if(!product){
+        console.log("Product not found :::::", product)
+        return null;
+      }
       return product;
     }catch(error){
-        console.log("deletePoductById Controller :::::::", error)
+        console.log("deletePoductById Controller ::::::: Catch", error)
         throw error;
     }
   }
 
-//   @Put(':id')
-//   update(@Param('id') id: string, @Body() updateProductDto: Partial<CreateProductDto>) {
-//     return this.productsService.update(id, updateProductDto);
-//   }
-
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateProductDto: Partial<CreateProductDTO>) {
+    try{
+      const product = await this.updateProductByIdUseCase.execute({id, ...updateProductDto})
+      if(!product){
+        console.log("Product not found :::::", product)
+        return null;
+      }
+      return product;
+    }catch(error){
+      console.log("updateProductById Controller :::::::", error)
+      throw error;
+    }
+  }
 }

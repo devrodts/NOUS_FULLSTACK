@@ -1,5 +1,4 @@
 import {Injectable} from "@nestjs/common"
-import { Product } from "src/modules/products/domain/entities/products.entity";
 import { ProductsRepository } from "src/modules/products/domain/infra/repositories/products/products.repository";
 import { DeleteProductDTO } from "src/modules/products/domain/interface/dtos/products/delete-product.dto";
 
@@ -13,7 +12,7 @@ export class DeleteProductUseCase{
 
     async execute(dto: DeleteProductDTO): Promise<any>{
         try{
-            const result = await this.productsRepository.deleteProductById(dto);
+            const result = await this.productsRepository.deleteProductById({id: dto.id});
             if(!result){
                 console.log("Failed to Delete The Product at Delete Product Use Case :::::", result)
             }
