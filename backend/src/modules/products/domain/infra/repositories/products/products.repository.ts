@@ -26,7 +26,7 @@ export class ProductsRepository{
     async deleteProductById(dto: DeleteProductDTO){
 
         try{
-           const result = await this.productModel.deleteOne(dto);
+           const result = await this.productModel.findOneAndDelete(dto)
            if(!result){
                 console.log("deleteProductById REPOSITORY :::::", result)
            }
@@ -48,12 +48,25 @@ export class ProductsRepository{
 
     async getProductById(dto: GetProductByIdDTO){
         try{
-            const product = await this.getProductById(dto);
+            console.log("getProductById Repository :::::", dto)
+            const product = await this.productModel.findById(dto.id);
+            if(!product){
+                console.log("Product not found :::::", product)
+                return null;
+            }
             return product;
         }catch(error){
             console.log("getProductById Repository :::::", error)
             throw error;
         }
     }
-    
+
+    updateProductById(id: string, dto: Partial<CreateProductDTO>){
+        try{
+            return this.productModel.findByIdAndUpdate(id, dto, {new: true});
+        }catch(error){
+            console.log("updateProductById Repository :::::", error)
+            throw error;
+        }
+    }
 }

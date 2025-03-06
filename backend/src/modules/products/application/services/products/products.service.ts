@@ -5,6 +5,7 @@ import { DeleteProductDTO } from 'src/modules/products/domain/interface/dtos/pro
 
 @Injectable()
 export class ProductsService {
+
   constructor(private readonly productsRepository: ProductsRepository) {}
 
   createProduct(dto: CreateProductDTO) {
@@ -21,6 +22,11 @@ export class ProductsService {
 
   getProductById(dto: DeleteProductDTO){
     return this.productsRepository.getProductById(dto);
-
   }
+
+  updateProductById(id: string, dto: Partial<CreateProductDTO>){
+    return this.productsRepository.updateProductById(id, dto);
+  }
+
+  
 }
