@@ -13,7 +13,6 @@ import { ProductsService } from 'src/modules/products/application/services/produ
 import { CreateProductDTO } from '../../dtos/products/create-product.dto';
 
 import { CreateProductUseCase } from 'src/modules/products/application/usecases/products/create-product.usecase';
-import { DeleteProductDTO } from '../../dtos/products/delete-product.dto';
 import { DeleteProductUseCase, GetProductByIdUseCase } from 'src/modules/products/application/usecases/products';
 import { UpdateProductByIdUseCase } from 'src/modules/products/application/usecases/products/update-product-by-id.usecase';
 
@@ -74,7 +73,7 @@ export class ProductController {
       throw error;
     }
   }
-  
+
   @Delete(':id')
   async deleteProductById(@Param('id') id: string){
     try{
