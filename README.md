@@ -1,4 +1,4 @@
-# O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas umas as outras, enquanto isso: 
+### O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas entre si, enquanto isso: 
 
 # Para rodar o projeto em localhost:
 
