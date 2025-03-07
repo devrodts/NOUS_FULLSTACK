@@ -5,7 +5,7 @@ import {
   Get, 
   Delete,
   Param,
-  Put,
+  Patch,
 } from '@nestjs/common';
 
 import { ProductsService } from 'src/modules/products/application/services/products/products.service';
@@ -15,6 +15,7 @@ import { CreateProductDTO } from '../../dtos/products/create-product.dto';
 import { CreateProductUseCase } from 'src/modules/products/application/usecases/products/create-product.usecase';
 import { DeleteProductUseCase, GetProductByIdUseCase } from 'src/modules/products/application/usecases/products';
 import { UpdateProductByIdUseCase } from 'src/modules/products/application/usecases/products/update-product-by-id.usecase';
+import { UpdateProductDTO } from '../../dtos/products';
 
 
 @Controller('products')
@@ -89,17 +90,19 @@ export class ProductController {
     }
   }
 
-  @Put(':id')
-  async update(@Param('id') id: string, @Body() updateProductDto: Partial<CreateProductDTO>) {
-    try{
-      const product = await this.updateProductByIdUseCase.execute({id, ...updateProductDto})
-      if(!product){
-        console.log("Product not found :::::", product)
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDTO) {
+    try {
+      console.log("updateProductDto :::::", updateProductDto.name, updateProductDto.price)
+      
+      const product = await this.updateProductByIdUseCase.execute({ id, dto: updateProductDto });
+      if (!product) {
+        console.log("Product not found :::::", product);
         return null;
       }
       return product;
-    }catch(error){
-      console.log("updateProductById Controller :::::::", error)
+    } catch (error) {
+      console.log("updateProductById Controller :::::::", error);
       throw error;
     }
   }
