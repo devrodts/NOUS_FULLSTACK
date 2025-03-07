@@ -1,4 +1,31 @@
-Segue um exemplo de um trecho para o README em Markdown que documenta as boas práticas adotadas no projeto:
+# O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas umas as outras, enquanto isso: 
+
+# Para rodar o projeto em localhost:
+
+```bash
+    docker-compose up -d 
+```
+
+```bash
+  cd ./backend/ 
+```
+
+```bash
+  yarn install 
+```
+
+### repita o mesmo processo para a pasta do front end e em seguida:
+
+##### dntro de backend/
+```bash
+  nest start
+```
+
+
+#### dentro de frontend/
+```bash
+  yarn dev
+```
 
 ---
 
