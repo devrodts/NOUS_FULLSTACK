@@ -1,6 +1,8 @@
 ### Update Product By Id
 
-PUT http://localhost:3000/products/9c2e4b93-bd95-4a1e-bbf9-b4c5b4208839
+PATCH http://localhost:3000/products/28a3582b-223e-4bd2-a5ed-aba23c45af2e
+
+Content-Type: application/json
 
 {
     "name": "Product Updated",
