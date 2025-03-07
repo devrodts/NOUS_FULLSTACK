@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from 'src/modules/products/domain/infra/repositories/products/products.repository';
+import { UpdateProductDTO } from 'src/modules/products/domain/interface/dtos/products';
 import { CreateProductDTO } from 'src/modules/products/domain/interface/dtos/products/create-product.dto';
 import { DeleteProductDTO } from 'src/modules/products/domain/interface/dtos/products/delete-product.dto';
 
@@ -24,7 +25,7 @@ export class ProductsService {
     return this.productsRepository.getProductById(dto);
   }
 
-  updateProductById(id: string, dto: Partial<CreateProductDTO>){
+  updateProductById(id: string, dto: Partial<UpdateProductDTO>){
     return this.productsRepository.updateProductById(id, dto);
   }
 
