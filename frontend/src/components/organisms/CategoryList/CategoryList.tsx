@@ -1,10 +1,15 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material"
 import Link from "next/link"
 import { CategoryInterface } from "@/interfaces/category.interface"
+import useDeviceType from "@/hooks/useDeviceType"
+
 export default function CategoryList({ categories }: { categories: CategoryInterface[] }) {
+  const isMobile = useDeviceType();
+
+
   return (
     <div>
-      <h1>Categories</h1>
+      <h1 style={isMobile ? { marginTop: "60px" } : {}}>Categories</h1>
       <Button
         component={Link}
         href="/categories/new"

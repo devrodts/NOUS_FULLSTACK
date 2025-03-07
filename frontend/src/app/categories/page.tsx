@@ -1,19 +1,31 @@
-import CategoryList from "@/components/CategoryList/CategoryList"
+"use client"
+import CategoryList from "@/components/organisms/CategoryList/CategoryList"
 import { fetchFromAPI } from "@/app/lib/api"
+import useDeviceType from "@/hooks/useDeviceType";
+import { useEffect, useState } from "react";
+import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants";
 
-export const revalidate = 60
+export default function CategoriesPage() {
+  const [categories, setCategories] = useState([]);
+  const isMobile = useDeviceType();
 
-async function getCategories() {
-  try {
-    return await fetchFromAPI("categories")
-  } catch (error) {
-    console.error('Failed to fetch categories ::: CategoriesPage', error);
-    return []
-  }
-}
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await fetchFromAPI("categories?include=products");
+        setCategories(data);
+      } catch (error) {
+        console.error('Failed to fetch categories ::: CategoriesPage', error);
+      }
+    };
 
-export default async function CategoriesPage() {
-  const categories = await getCategories()
-  return <CategoryList categories={categories} />
+    fetchCategories();
+  }, []);
+
+  return (
+    <div style={isMobile ? mobileMainSyle : desktopMainSyle}>
+      <CategoryList categories={categories} />
+    </div>
+  )
 }
 

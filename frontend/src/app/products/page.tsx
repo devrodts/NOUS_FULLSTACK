@@ -1,14 +1,18 @@
 "use client"
 
 import { useProductContext } from "@/context/ProductContext/ProductContext"
-import { useEffect } from "react"
-import ProductList from "@/components/ProductList/ProductList"
+import { useEffect, useState } from "react"
+import ProductList from "@/components/organisms/ProductList/ProductList"
 import getProducts from "@/context/ProductContext/get-all-products"
-import LinearLoading from "@/components/LinearLoading/LinearLoading"
+import LinearLoading from "@/components/atoms/LinearLoading/LinearLoading"
+import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants";
+import useDeviceType from "@/hooks/useDeviceType";
 
 export default function ProductsPage() {
   const { state, dispatch } = useProductContext(); 
   const { products, loading, error } = state;
+
+  const isMobile = useDeviceType()
   useEffect(() => {
     getProducts(dispatch);
   }, [dispatch]);
@@ -20,8 +24,12 @@ export default function ProductsPage() {
     </div>
     </>
   )
-
+  
   if (error) return <div>{error}</div>; 
 
-  return <ProductList products={products} />;
+  return (
+    <div style={isMobile ? mobileMainSyle : desktopMainSyle}>
+      <ProductList products={products} />;
+    </div>
+  )
 }

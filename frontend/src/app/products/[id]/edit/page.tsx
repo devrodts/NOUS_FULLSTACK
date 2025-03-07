@@ -3,8 +3,9 @@
 import { useParams } from "next/navigation"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
-
-
+import useDeviceType from "@/hooks/useDeviceType"
+import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants"
+import { useRouter } from "next/navigation"
 export default function ProductPage() {
 
 
@@ -16,7 +17,8 @@ export default function ProductPage() {
   image: string,
  }
 const { id, name, price, stock, description, image } = useParams()
-
+const isMobile = useDeviceType();
+const router = useRouter();
 const [formData, setFormData] = useState<formData>({
   name: "",
   price: 0,
@@ -50,7 +52,12 @@ const handleSubmit = async () => {
       body: JSON.stringify(formData)
     })
     const data = await response.json()
-    console.log(data)
+    if(response.ok){  
+      console.log(data)
+      router.push(`/products/`)
+    } else {
+      console.error(data)
+    }
   } catch (error) {
     console.error(error)
   }
@@ -58,8 +65,13 @@ const handleSubmit = async () => {
   
   return(
     <>
-      <h1>Edit Product</h1>
-     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <h1 style={isMobile ? { marginTop: "60px", marginLeft: "15px" } : {}}>Edit Product</h1>
+     <div style={isMobile ? {
+      ...mobileMainSyle,
+      display: "flex",
+      flexDirection: "column",
+      gap: "20px"
+     } : desktopMainSyle}>
      <TextField
         label="Name"
         name="name"
@@ -94,7 +106,7 @@ const handleSubmit = async () => {
       />
 
       <Button variant="contained" color="primary" onClick={handleSubmit}>Update</Button>
-     </Box>
+     </div>
       {/* <h2>{id}</h2> */}
     </>
   )

@@ -1,5 +1,7 @@
+"use client"
 import { Grid, Paper, Typography } from "@mui/material"
-
+import useDeviceType from "@/hooks/useDeviceType"
+import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants"
 export default function Dashboard() {
   
   const kpis = [
@@ -8,11 +10,11 @@ export default function Dashboard() {
     { title: "Total Revenue", value: "$111,054.66" },
   ]
 
+  const isMobile = useDeviceType();
+
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        Dashboard
-      </Typography>
+    <section style={isMobile ? mobileMainSyle : desktopMainSyle}>
+      <h1 style={isMobile ? { marginTop: "60px" } : {}}>Dashboard</h1>
       <Grid container spacing={3}>
         {kpis.map((kpi) => (
           <Grid item xs={12} sm={4} key={kpi.title}>
@@ -34,7 +36,7 @@ export default function Dashboard() {
           </Grid>
         ))}
       </Grid>
-    </div>
+      </section>
   )
 }
 

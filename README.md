@@ -1,4 +1,6 @@
-### O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas entre sí, enquanto isso: 
+
+### O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas entre si, enquanto isso: 
+
 
 # Para rodar o projeto em localhost:
 
@@ -12,6 +14,10 @@
 
 ```bash
   yarn install 
+```
+
+```bash
+  yarn seed
 ```
 
 ### repita o mesmo processo para a pasta do front end e em seguida:

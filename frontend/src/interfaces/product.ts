@@ -1,4 +1,6 @@
-export interface ProductInterface{
+import { Category } from "./category";
+
+export interface ProductInterface {
     id: string
     name: string
     description: string
@@ -7,6 +9,8 @@ export interface ProductInterface{
     colors?:string[];
     imageUrl: string;
     stock: number;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
+    image: string;
+    categories?: Category[];
 }
