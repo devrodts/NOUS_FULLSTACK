@@ -1,10 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Product } from "src/modules/products/domain/entities/products.entity";
 import { CreateProductDTO } from "src/modules/products/domain/interface/dtos/products/create-product.dto";
 import { DeleteProductDTO } from "../../../interface/dtos/products/delete-product.dto";
 import { GetProductByIdDTO } from "../../../interface/dtos/products/get-product-by-id.dto";
+import { UpdateProductDTO } from "../../../interface/dtos/products";
 
 @Injectable()
 export class ProductsRepository{
@@ -71,9 +72,28 @@ export class ProductsRepository{
         }
     }
 
-    updateProductById(id: string, dto: Partial<CreateProductDTO>){
+    async updateProductById(id: string, dto: Partial<UpdateProductDTO>){
         try{
-            return this.productModel.findByIdAndUpdate(id, dto, {new: true});
+            const productToUpdate = await this.productModel.findOne({ id: id });
+
+            if(!productToUpdate){
+                console.log("Product not found :::::", productToUpdate)
+                return null;
+            }
+
+            Logger.log("productToUpdate :::::", productToUpdate)
+            Logger.log("dto :::::", dto)
+            const updatedProduct = await this.productModel.updateOne({ id }, dto , { new: true });
+
+            Logger.log("Atualizando produto com id:", id, "com dados:", dto);
+
+
+            if(!updatedProduct){
+                console.log("Product not updated :::::", updatedProduct)
+                return null;
+            }
+            return updatedProduct;
+            
         }catch(error){
             console.log("updateProductById Repository :::::", error)
             throw error;
