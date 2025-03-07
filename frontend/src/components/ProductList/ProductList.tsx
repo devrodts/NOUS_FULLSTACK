@@ -9,12 +9,23 @@ import { getProducts } from "@/app/lib/api/products/get-products"
 import deleteProductById from "@/context/ProductContext/delete-product-by-id"
 import { useProductContext } from "@/context/ProductContext/ProductContext"
 import LinearLoading from "../LinearLoading/LinearLoading"
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function ProductList({ products }: { products: ProductInterface[] }) {
     const { state, dispatch } = useProductContext();
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    
+
+    const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if(file){
+        const formData = new FormData()
+        formData.append("image", file)
+      }
+    }
+    
 
     const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
       
@@ -34,6 +45,49 @@ export default function ProductList({ products }: { products: ProductInterface[]
     const handleDelete = async (id: string) => {
       await deleteProductById(id, dispatch);
     };
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+      const handleResize = () => {
+        if(window.innerWidth <= 900){
+          setIsMobile(true)
+        }else{
+          setIsMobile(false)
+        }
+      }
+      handleResize()
+      window.addEventListener("resize", handleResize)
+      return () => window.removeEventListener("resize", handleResize)
+    },[])
+
+    const mobileModalStyles: React.CSSProperties = {
+      width: "90vw",
+      maxWidth: "none",
+      margin: "1vh 2.5vh",
+      backgroundColor: "white",
+      border:"none",
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
+      flexDirection: "column",
+      justifyContent: "center",
+    }
+
+    const desktopModalStyles: React.CSSProperties = {
+      width: "50vw",
+      padding: "40px",
+      margin: "0 auto",
+      backgroundColor: "white",
+      border:"none",
+      marginTop: "12vh",
+      borderRadius: "16px",
+    }
+
+    const titleMobileStyles: React.CSSProperties = {
+      marginTop: "70px",
+    
+    }
   return (
     <>
       {state.loading && <>
@@ -41,7 +95,8 @@ export default function ProductList({ products }: { products: ProductInterface[]
       </>}
     {!state.loading && <>
       <div>
-      <h1>Products</h1>
+        
+      <h1 style={isMobile ? titleMobileStyles : {}}>Products</h1>
       <Button
         onClick={handleOpen}
         variant="contained"
@@ -50,35 +105,33 @@ export default function ProductList({ products }: { products: ProductInterface[]
       >
         Add New Product
       </Button>
-      <AddModal open={open} onClose={handleClose} onOpen={handleOpen}>
+      <AddModal 
+        open={open} 
+        onClose={handleClose} 
+        onOpen={handleOpen}
+      >
         <form onSubmit={handleSubmit}>
-
-            <Box 
-                display="flex" 
-                flexDirection="column" 
-                gap={2}
-                sx={{
-                  width: "50vw",
-                  maxWidth: "500px",
-                  margin: "0 auto",
-                  backgroundColor: "white",
-                  border:"none",
-                  padding: "20px",
-                  borderRadius: "10px",
-                  boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
-                  marginTop: "10vh",
-                }}
+            <div 
+                style={isMobile ? mobileModalStyles : desktopModalStyles}
             >
+              <Box display="flex" flexDirection="column" gap={2} sx={{marginBottom:"2vh"}}>
+              <div style={{position:"relative", display:"flex", justifyContent:"flex-end", cursor:"pointer"}}>
+                  <ClearIcon onClick={handleClose} />
+              </div>
               <TextField name="name" label="Name" />
               <TextField name="price" label="Price" />
               <TextField name="description" label="Description" />
               <TextField name="image" label="Image" />
+              </Box>
+              <Box display="flex" flexDirection="column" gap={2}>
+
               <FileUploadButton label="Upload Image" />
 
               <Button type="submit" variant="contained" color="primary">
                 Add Product
               </Button>
-            </Box>
+              </Box>
+            </div>
         </form>
       </AddModal>
       <TableContainer component={Paper} sx={{ marginTop: "20px" }}>

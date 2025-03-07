@@ -80,7 +80,7 @@ export default function Sidebar() {
             sx={{
               position: "absolute",
               top: 0,
-              left: 10,
+              left: 2,
               zIndex: 2,
             }}
           >

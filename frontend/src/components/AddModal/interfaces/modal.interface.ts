@@ -3,4 +3,5 @@ export interface ModalInterface{
     onClose: () => void;
     onOpen: () => void;
     children: React.ReactNode;
+    style?: React.CSSProperties;
 }
