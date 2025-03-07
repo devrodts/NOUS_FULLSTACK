@@ -2,14 +2,15 @@
 import { ProductInterface } from "@/interfaces/product"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Box, TextField } from "@mui/material"
 import Link from "next/link"
-import AddModal from "../AddModal/AddModal"
+import AddModal from "../../molecules/AddModal/AddModal"
 import { useEffect, useState } from "react"
-import FileUploadButton from "../atoms/FileUploadButton/FileUploadButton"
+import FileUploadButton from "../../atoms/FileUploadButton/FileUploadButton"
 import { getProducts } from "@/app/lib/api/products/get-products"
 import deleteProductById from "@/context/ProductContext/delete-product-by-id"
 import { useProductContext } from "@/context/ProductContext/ProductContext"
-import LinearLoading from "../LinearLoading/LinearLoading"
+import LinearLoading from "../../atoms/LinearLoading/LinearLoading"
 import ClearIcon from '@mui/icons-material/Clear';
+import useDeviceType from '@/hooks/useDeviceType';
 
 export default function ProductList({ products }: { products: ProductInterface[] }) {
     const { state, dispatch } = useProductContext();
@@ -46,20 +47,7 @@ export default function ProductList({ products }: { products: ProductInterface[]
       await deleteProductById(id, dispatch);
     };
 
-    const [isMobile, setIsMobile] = useState(false)
-
-    useEffect(() => {
-      const handleResize = () => {
-        if(window.innerWidth <= 900){
-          setIsMobile(true)
-        }else{
-          setIsMobile(false)
-        }
-      }
-      handleResize()
-      window.addEventListener("resize", handleResize)
-      return () => window.removeEventListener("resize", handleResize)
-    },[])
+    const isMobile = useDeviceType();
 
     const mobileModalStyles: React.CSSProperties = {
       width: "90vw",

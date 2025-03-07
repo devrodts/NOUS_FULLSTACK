@@ -1,6 +1,7 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material"
 import Link from "next/link"
 import { CategoryInterface } from "@/interfaces/category.interface"
+
 export default function CategoryList({ categories }: { categories: CategoryInterface[] }) {
   return (
     <div>

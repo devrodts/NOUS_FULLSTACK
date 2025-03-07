@@ -1,5 +1,5 @@
 "use client"
-import AddModal from "@/components/AddModal/AddModal";
+import AddModal from "@/components/molecules/AddModal/AddModal";
 import { useState } from "react";
 import { Typography } from "@mui/material"; 
 

@@ -9,7 +9,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div>
+    <section>
       <Typography variant="h4" gutterBottom>
         Dashboard
       </Typography>
@@ -34,7 +34,7 @@ export default function Dashboard() {
           </Grid>
         ))}
       </Grid>
-    </div>
+      </section>
   )
 }
 

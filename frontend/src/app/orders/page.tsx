@@ -1,4 +1,4 @@
-import OrderList from "@/components/OrderList/OrderList"
+import OrderList from "@/components/organisms/OrderList/OrderList"
 import { fetchFromAPI } from "@/app/lib/api"
 
 export const revalidate = 60
