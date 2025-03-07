@@ -139,6 +139,7 @@ export default function ProductList({ products }: { products: ProductInterface[]
                 <TableCell>${product.price.toFixed(2)}</TableCell>
                 <TableCell>{product.description}</TableCell>
                 <TableCell>
+                  <Box display="flex" gap={2} sx={{flexDirection: isMobile ? "column" : "row"}}>
                   <Button
                     component={Link}
                     href={`/products/${product.id}/edit`}
@@ -153,6 +154,7 @@ export default function ProductList({ products }: { products: ProductInterface[]
                     variant="outlined" color="secondary" size="small">
                     Delete
                   </Button>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}

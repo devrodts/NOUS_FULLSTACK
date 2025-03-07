@@ -14,6 +14,10 @@
   yarn install 
 ```
 
+```bash
+  yarn seed
+```
+
 ### repita o mesmo processo para a pasta do front end e em seguida:
 
 ##### dntro de backend/

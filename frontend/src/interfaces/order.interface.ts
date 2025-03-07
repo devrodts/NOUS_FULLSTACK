@@ -1,7 +1,7 @@
 import { ProductInterface } from "./product";
 
 export interface OrderInterface{
-    _id: string;
+    id: string;
     total: number;
     createdAt: Date;
     updatedAt: Date;

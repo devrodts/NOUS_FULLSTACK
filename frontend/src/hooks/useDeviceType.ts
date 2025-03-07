@@ -1,7 +1,8 @@
+"use client"
 import { useState, useEffect } from 'react';
 
 const useDeviceType = (breakpoint = 900) => {
-    
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
