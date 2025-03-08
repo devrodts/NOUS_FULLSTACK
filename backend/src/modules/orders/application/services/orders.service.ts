@@ -1,8 +1,8 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { OrdersRepository } from "../../domain/infra/repositories/orders.repository";
-import { Orders } from "../../domain/entities/orders.entity";
-import { CreateOrderDto } from "../../domain/interface/dtos";
-import { UpdateOrderByIdDto } from "../../domain/interface/dtos/update-order-by-id";
+import { Injectable, Logger } from '@nestjs/common';
+import { OrdersRepository } from '../../domain/infra/repositories/orders.repository';
+import { Orders } from '../../domain/entities/orders.entity';
+import { CreateOrderDto } from '../../domain/interface/dtos';
+import { UpdateOrderByIdDto } from '../../domain/interface/dtos/update-order-by-id';
 
 @Injectable()
 export class OrdersService {
@@ -12,11 +12,11 @@ export class OrdersService {
     try {
       const orderData = {
         ...dto,
-        productsIds: dto.productsIds || [] // Garante que productsIds seja um array
+        productsIds: dto.productsIds || [], // Garante que productsIds seja um array
       };
       const newOrder = await this.ordersRepository.createOrder(orderData);
       return newOrder;
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -24,8 +24,8 @@ export class OrdersService {
   async findAllOrders(): Promise<Orders[]> {
     try {
       return this.ordersRepository.findAllOrders();
-    } catch(e) {
-      Logger.error("Error on FindAllOrders: ", e);
+    } catch (e) {
+      Logger.error('Error on FindAllOrders: ', e);
       throw new Error(e);
     }
   }
@@ -34,32 +34,29 @@ export class OrdersService {
     try {
       const order = await this.ordersRepository.findOrderById(id);
       if (!order) {
-        throw new Error("Order not found");
+        throw new Error('Order not found');
       }
       return order;
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
 
   async updateOrderById(id: string, dto: UpdateOrderByIdDto): Promise<Orders> {
     try {
-      const order = await this.ordersRepository.updateOrderById(
-        id,
-        {
-          id: id,
-          date: dto.date,
-          productsIds: dto.productsIds || [],
-          total: dto.total,
-          created_at: dto.created_at,
-          updated_at: dto.updated_at
-        }
-      );
+      const order = await this.ordersRepository.updateOrderById(id, {
+        id: id,
+        date: dto.date,
+        productsIds: dto.productsIds || [],
+        total: dto.total,
+        created_at: dto.created_at,
+        updated_at: dto.updated_at,
+      });
       if (!order) {
-        throw new Error("Order not found");
-      } 
+        throw new Error('Order not found');
+      }
       return order;
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -67,9 +64,8 @@ export class OrdersService {
   async deleteOrderById(id: string): Promise<Orders | null> {
     try {
       return await this.ordersRepository.deleteOrderById(id);
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
 }
-

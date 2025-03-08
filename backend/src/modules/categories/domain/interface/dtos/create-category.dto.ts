@@ -1,11 +1,11 @@
-import { IsMongoId, IsNotEmpty, IsString } from "class-validator";
+import { IsMongoId, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateCategoryDTO{
-    @IsMongoId()
-    @IsNotEmpty()
-    id: string;
+export class CreateCategoryDTO {
+  @IsMongoId()
+  @IsNotEmpty()
+  id: string;
 
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 }

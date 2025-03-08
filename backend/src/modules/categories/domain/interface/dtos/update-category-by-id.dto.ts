@@ -1,6 +1,6 @@
-import { CreateCategoryDTO } from "./create-category.dto";
+import { CreateCategoryDTO } from './create-category.dto';
 
-export class UpdateCategoryByIdDTO{
-    id: string;
-    dto: Partial<CreateCategoryDTO>;
+export class UpdateCategoryByIdDTO {
+  id: string;
+  dto: Partial<CreateCategoryDTO>;
 }

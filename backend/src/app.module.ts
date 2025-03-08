@@ -6,7 +6,7 @@ import { DatabaseModule } from './shared/database/mongo.module';
 import { ConfigModule } from '@nestjs/config';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { OrdersModule } from './modules/orders/orders.module';
-import { DashboardModule } from "./modules/dashboard/domain/dashboard.module";
+import { DashboardModule } from './modules/dashboard/domain/dashboard.module';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { DashboardModule } from "./modules/dashboard/domain/dashboard.module";
     CategoriesModule,
     OrdersModule,
     DashboardModule,
-     DatabaseModule
+    DatabaseModule,
   ],
 
   controllers: [AppController],

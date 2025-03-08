@@ -1,21 +1,31 @@
 import { ProductInterface } from "@/interfaces/product";
 import { useProductContext } from "./ProductContext";
 
-const { state, dispatch } = useProductContext();
-const { products, loading, error } = state;
-
-const addProduct = async (newProduct: ProductInterface) => {
+export const useAddProduct = () => {
+  const { dispatch } = useProductContext();
+  
+  return async (newProduct: ProductInterface) => {
     try {
-      const response = await fetch("/api/products", {
+      dispatch({ type: "SET_LOADING", payload: true });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
         method: "POST",
         body: JSON.stringify(newProduct),
         headers: { "Content-Type": "application/json" },
       });
-      const addedProduct: ProductInterface = await response.json();
-      dispatch({ type: "ADD_PRODUCT", payload: addedProduct });
-    } catch (err) {
-      dispatch({ type: "SET_ERROR", payload: "Erro ao adicionar o produto" });
+
+      if (!response.ok) {
+        console.log("Erro ao adicionar o produto.", response);
+        throw new Error("Erro ao adicionar o produto");
+      }
+
+      const product = await response.json();
+      dispatch({ type: "ADD_PRODUCT", payload: product });
+      return product;
+    } catch (error) { // Changed from 'err' to 'error'
+      dispatch({ type: "SET_ERROR", payload: error instanceof Error ? error.message : "Erro desconhecido" });
+      throw error;
+    } finally {
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
-
-export default addProduct;
+};

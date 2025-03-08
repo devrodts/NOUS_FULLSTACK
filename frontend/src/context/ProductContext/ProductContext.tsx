@@ -1,9 +1,9 @@
 "use client"
 
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, Dispatch } from "react";
 import { ProductStateInterface } from "@/interfaces/product-state.interface";
-import { productReducer, INITIAL_STATE, Action } from "./productReducer";
-
+import { productReducer, INITIAL_STATE, } from "./productReducer";
+import { Action } from "@/interfaces/action.interface";
 interface ProductContextProps {
   state: ProductStateInterface;
   dispatch: React.Dispatch<Action>;
@@ -17,7 +17,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [state, dispatch] = useReducer(productReducer, INITIAL_STATE);
 
   return (
-    <ProductContext.Provider value={{ state, dispatch }}>
+    <ProductContext.Provider value={{ state, dispatch: dispatch as Dispatch<Action> }}>
       {children}
     </ProductContext.Provider>
   );

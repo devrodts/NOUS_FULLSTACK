@@ -1,4 +1,6 @@
-const deleteProductById = async (id: string, dispatch: React.Dispatch<any>) => {
+import { Action } from "@/interfaces";
+
+const deleteProductById = async (id: string, dispatch: React.Dispatch<Action>) => {
   try {
     dispatch({
       type: 'SET_LOADING',

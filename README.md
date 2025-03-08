@@ -1,9 +1,11 @@
-### O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas entre si, enquanto isso: 
-
 # Para rodar o projeto em localhost:
 
 ```bash
-    docker-compose up -d 
+    docker-compose build
+```
+
+```bash
+  docker-compose up
 ```
 
 ```bash

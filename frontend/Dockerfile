@@ -20,4 +20,6 @@ EXPOSE 3003
 
 ENV NODE_ENV=production
 
+CMD ["yarn", "seed"]
+
 CMD ["yarn", "start"]

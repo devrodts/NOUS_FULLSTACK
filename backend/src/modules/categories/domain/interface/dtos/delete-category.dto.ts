@@ -1,3 +1,3 @@
-export class DeleteCategoryDTO{
-    id: string;
+export class DeleteCategoryDTO {
+  id: string;
 }

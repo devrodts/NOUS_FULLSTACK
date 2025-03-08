@@ -1,32 +1,4 @@
 services:
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: backend
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-    depends_on:
-      - mongodb
-      - localstack
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend
-    restart: always
-    ports:
-      - "3003:3003"
-    environment:
-      NODE_ENV: production
-    depends_on:
-      - backend
-      - mongodb
-      - localstack
-
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -36,14 +8,17 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mongodb_nous
+      MONGODB_URI: mongodb://root:example@mongodb:27017/mongodb_nous?authSource=admin
     volumes:
       - mongodb_data:/data/db
-
+    networks:
+      - app-network
   localstack:
     image: localstack/localstack:latest
     container_name: localstack
     ports:
-      - "4566:4566"
+      - "4566:4566" 
     environment:
       - SERVICES=s3
       - DEFAULT_REGION=us-east-1
@@ -53,8 +28,36 @@ services:
     volumes:
       - localstack_data:/var/lib/localstack
       - "/var/run/docker.sock:/var/run/docker.sock"
-
+    networks:
+      - app-network
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - mongodb
+      - localstack
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+      - mongodb
+      - localstack
 volumes:
   mongodb_data:
   localstack_data:
+
+networks:
+  app-network:
+    driver: bridge
   

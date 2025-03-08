@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Product, ProductSchema} from './domain/entities/products.entity';
+import { Product, ProductSchema } from './domain/entities/products.entity';
 import { ProductController } from './domain/interface/controllers/products/products.controller';
 import { ProductsRepository } from './domain/infra/repositories/products/products.repository';
 import { CreateProductUseCase } from './application/usecases/products/create-product.usecase';
 import { ProductsService } from './application/services/products/products.service';
-import { 
+import {
   DeleteProductUseCase,
   GetAllProductsUseCase,
   GetProductByIdUseCase,
-  UpdateProductByIdUseCase
- } from './application/usecases/products';
+  UpdateProductByIdUseCase,
+} from './application/usecases/products';
 
 @Module({
   imports: [
@@ -21,12 +21,11 @@ import {
     ProductsRepository,
     DeleteProductUseCase,
     GetAllProductsUseCase,
-    CreateProductUseCase, 
+    CreateProductUseCase,
     GetProductByIdUseCase,
     UpdateProductByIdUseCase,
-    ProductsService
+    ProductsService,
   ],
   exports: [ProductsRepository],
 })
-
 export class ProductModule {}

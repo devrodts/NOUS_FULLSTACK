@@ -2,12 +2,11 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { GetMetricsUseCase } from '../../../application/usecases/get-metrics.usecase';
 import { GetSalesByPeriodUseCase } from '../../../application/usecases/get-sales-by-period.usecase';
 
-
 @Controller('dashboard')
 export class DashboardController {
   constructor(
     private readonly getMetricsUseCase: GetMetricsUseCase,
-    private readonly getSalesByPeriodUseCase: GetSalesByPeriodUseCase
+    private readonly getSalesByPeriodUseCase: GetSalesByPeriodUseCase,
   ) {}
 
   @Get('metrics')
@@ -17,7 +16,12 @@ export class DashboardController {
     @Query('categoryId') categoryId?: string,
     @Query('productId') productId?: string,
   ) {
-    return this.getMetricsUseCase.execute(startDate, endDate, categoryId, productId);
+    return this.getMetricsUseCase.execute(
+      startDate,
+      endDate,
+      categoryId,
+      productId,
+    );
   }
 
   @Get('sales-by-period')
@@ -29,4 +33,3 @@ export class DashboardController {
     return this.getSalesByPeriodUseCase.execute(period, startDate, endDate);
   }
 }
-

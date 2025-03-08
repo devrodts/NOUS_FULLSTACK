@@ -9,6 +9,7 @@ const MyModal = ({ open, onClose, children, style } : ModalInterface) => {
     <Modal
       open={open}
       onClose={onClose}
+      style={style}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >

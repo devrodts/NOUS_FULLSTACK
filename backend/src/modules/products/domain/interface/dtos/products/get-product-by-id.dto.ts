@@ -1,3 +1,3 @@
-export class GetProductByIdDTO{
-    id:string;
+export class GetProductByIdDTO {
+  id: string;
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useProductContext } from "@/context/ProductContext/ProductContext"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import ProductList from "@/components/organisms/ProductList/ProductList"
 import getProducts from "@/context/ProductContext/get-all-products"
 import LinearLoading from "@/components/atoms/LinearLoading/LinearLoading"
