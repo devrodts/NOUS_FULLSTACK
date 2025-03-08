@@ -99,4 +99,11 @@ export class ProductsRepository{
             throw error;
         }
     }
+
+    async findProductsByCategoryId(categoryId: string): Promise<Product[]> {
+        return this.productModel
+          .find({ categoryIds: { $in: [categoryId] } })
+          .select('_id')
+          .exec();
+      }
 }

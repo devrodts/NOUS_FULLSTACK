@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import useDeviceType from "@/hooks/useDeviceType"
 import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants"
@@ -71,7 +71,15 @@ const handleSubmit = async () => {
       display: "flex",
       flexDirection: "column",
       gap: "20px"
-     } : desktopMainSyle}>
+     } :
+      {
+        ...desktopMainSyle,
+        display: "flex",
+        maxWidth: "60vw",
+        flexDirection: "column",
+        gap: "20px",
+      }
+      }>
      <TextField
         label="Name"
         name="name"

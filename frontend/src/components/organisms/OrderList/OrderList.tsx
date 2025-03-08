@@ -22,7 +22,13 @@ export default function OrderList({ orders }: { orders: OrderInterface[] }) {
   return (
     <div  style={isMobile ? mobileMainSyle : desktopMainSyle}>
       <h1 style={isMobile ? { marginTop: "60px" } : {}}>Orders</h1>
-      <Button component={Link} href="/orders/new" variant="contained" color="primary" style={{ marginBottom: "20px" }}>
+      <Button 
+              component={Link} 
+              href="/orders/new"
+              variant="contained" 
+              color="primary" 
+              style={{ marginBottom: "20px", marginLeft: "10px" }}
+      >
         Create New Order
       </Button>
       <TableContainer component={Paper}>
@@ -30,9 +36,9 @@ export default function OrderList({ orders }: { orders: OrderInterface[] }) {
           <TableHead>
             <TableRow>
               <TableCell>Order ID</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Total</TableCell>
+              <TableCell>Total</TableCell>  
               <TableCell>Actions</TableCell>
+              {/* <TableCell>Date</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -40,7 +46,8 @@ export default function OrderList({ orders }: { orders: OrderInterface[] }) {
               <TableRow key={order.id}>
                 <TableCell>{order.id}</TableCell>
                 <TableCell>${order.total.toFixed(2)}</TableCell>
-                <TableCell>{order.products.map((product) => product.name).join(", ")}</TableCell>
+                {/* <TableCell>{order.createdAt.toLocaleDateString()}</TableCell> */}
+                {/* <TableCell>{order.createdAt.getDate()}</TableCell> */}
                 <TableCell>
                   <Button
                     component={Link}

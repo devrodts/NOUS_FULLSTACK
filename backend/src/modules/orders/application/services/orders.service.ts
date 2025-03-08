@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { OrdersRepository } from "../../domain/infra/repositories/orders.repository";
 import { Orders } from "../../domain/entities/orders.entity";
 import { CreateOrderDto } from "../../domain/interface/dtos";
@@ -25,6 +25,7 @@ export class OrdersService {
     try {
       return this.ordersRepository.findAllOrders();
     } catch(e) {
+      Logger.error("Error on FindAllOrders: ", e);
       throw new Error(e);
     }
   }
@@ -62,8 +63,13 @@ export class OrdersService {
       throw new Error(e);
     }
   }
-  
-  
 
+  async deleteOrderById(id: string): Promise<Orders | null> {
+    try {
+      return await this.ordersRepository.deleteOrderById(id);
+    } catch(e) {
+      throw new Error(e);
+    }
+  }
 }
 

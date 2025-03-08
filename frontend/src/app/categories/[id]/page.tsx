@@ -59,13 +59,21 @@ const handleSubmit = async () => {
   
   return(
     <>
-      <h1 style={isMobile ? { marginTop: "60px", marginLeft: "15px" } : {}}>Editar Categoria</h1>
      <div style={isMobile ? {
       ...mobileMainSyle,
       display: "flex",
       flexDirection: "column",
       gap: "20px"
-     } : desktopMainSyle}>
+     } :
+      {
+        ...desktopMainSyle,
+        display: "flex",
+        maxWidth: "60vw",
+        flexDirection: "column",
+        gap: "20px",
+      }
+      }>
+        <h1 style={isMobile ? { marginTop: "60px", marginLeft: "15px" } : {}}>Editar Categoria</h1>
      <TextField
         label="Id da categoria"
         name="id"
