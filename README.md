@@ -14,15 +14,18 @@
   yarn install 
 ```
 
-```bash
-  yarn seed
-```
-
 ### repita o mesmo processo para a pasta do front end e em seguida:
 
 ##### dntro de backend/
+
 ```bash
   nest start
+```
+
+
+##### para popular o banco de dados
+```bash
+  yarn seed
 ```
 
 

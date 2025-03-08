@@ -71,7 +71,15 @@ const handleSubmit = async () => {
       display: "flex",
       flexDirection: "column",
       gap: "20px"
-     } : desktopMainSyle}>
+     } : 
+      {
+        ...desktopMainSyle,
+        display: "flex",
+        maxWidth: "60vw",
+        flexDirection: "column",
+        gap: "20px",
+      }
+      }>
      <TextField
         label="Id da ordem"
         name="id"
@@ -82,10 +90,11 @@ const handleSubmit = async () => {
       <TextField
         label="Id de produtos"
         name="productsIds"
-        placeholder={formData.productsIds[0]}
+        placeholder={formData.productsIds}
+        // placeholder={formData.productsIds.map((productId) => productId).join(", ")}
         value={formData.productsIds}
         type="text"
-        onChange={(e) => setFormData(prev => ({ ...prev, productsIds: [...prev.productsIds, e.target.value] }))}
+        // onChange={(e) => setFormData(prev => ({ ...prev, productsIds: [...prev.productsIds, e.target.value] }))}
       />
       <TextField
         label="Total"

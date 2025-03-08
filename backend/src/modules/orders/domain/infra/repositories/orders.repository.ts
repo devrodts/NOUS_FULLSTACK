@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { Orders } from "../../entities/orders.entity";
+import { InjectModel } from "@nestjs/mongoose";
 
 @Injectable()
 export class OrdersRepository {
-    constructor(private readonly ordersModel: Model<Orders>) {
+    constructor(@InjectModel('Order') private readonly ordersModel: Model<Orders>) {
 
     }
 
@@ -26,5 +27,9 @@ export class OrdersRepository {
 
     async deleteOrderById(id: string): Promise<Orders | null> {
         return this.ordersModel.findOneAndDelete({ id: id });
+    }
+
+    async aggregateOrders(pipeline: any[]): Promise<any[]> {
+        return this.ordersModel.aggregate(pipeline).exec();
     }
 }

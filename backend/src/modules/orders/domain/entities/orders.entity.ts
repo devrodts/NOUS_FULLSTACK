@@ -1,5 +1,6 @@
 
-import { IsArray, IsDate, IsMongoId, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { SchemaFactory } from "@nestjs/mongoose";
+import { IsArray, IsDate, IsMongoId, IsNotEmpty, IsNumber } from "class-validator";
 
 export class Orders{
     @IsMongoId()
@@ -26,3 +27,4 @@ export class Orders{
     @IsNotEmpty()
     updated_at: Date;
 }
+export const OrdersSchema = SchemaFactory.createForClass(Orders);
