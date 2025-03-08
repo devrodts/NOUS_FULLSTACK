@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import useDeviceType from "@/hooks/useDeviceType"
 import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants"
@@ -9,10 +9,12 @@ import { useRouter } from "next/navigation"
 export default function ProductPage() {
 
 
- type formData = {
+type formData = {
   id: string,
   name: string,
- }
+}
+
+
 const { id, name } = useParams()
 
 const isMobile = useDeviceType();
@@ -33,6 +35,7 @@ useEffect(() => {
     })
   })()  
 }, [id])
+
 
 const handleSubmit = async () => {
   try {
@@ -86,7 +89,7 @@ const handleSubmit = async () => {
         name="name"
         placeholder={name as string}
         value={formData.name}
-        type="text"
+        // type="text"
         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
       />
       <Button variant="contained" color="primary" onClick={handleSubmit}>Update</Button>

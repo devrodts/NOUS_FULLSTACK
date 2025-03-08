@@ -35,7 +35,7 @@ export async function getProducts() {
 export async function updateProduct(product: ProductInterface) {
 
   try{
-    const response = await fetch(`${API_URL}/products/${product._id}`, {
+    const response = await fetch(`${API_URL}/products/${product.id}`, {
       method: "PUT",
       body: JSON.stringify(product),
     })
@@ -45,6 +45,21 @@ export async function updateProduct(product: ProductInterface) {
     return response.json()
   } catch (error) {
     console.error("Error updating product:", error)
+    throw error
+  }
+}
+
+export const getProductById = async (id: string) => {
+  try{
+    const response = await fetch(`${API_URL}/products/${id}`)
+    if (!response.ok) {
+      console.log("Erro ao buscar produto por id.", response)
+      throw new Error(`API request failed: ${response.statusText}`)
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error getting product by id:", error)
     throw error
   }
 }
