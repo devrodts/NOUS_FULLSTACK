@@ -1,4 +1,32 @@
 services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - mongodb
+      - localstack
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "3003:3003"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - backend
+      - mongodb
+      - localstack
+
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -15,7 +43,7 @@ services:
     image: localstack/localstack:latest
     container_name: localstack
     ports:
-      - "4566:4566"  # Porta principal do LocalStack
+      - "4566:4566"
     environment:
       - SERVICES=s3
       - DEFAULT_REGION=us-east-1
@@ -29,3 +57,4 @@ services:
 volumes:
   mongodb_data:
   localstack_data:
+  
