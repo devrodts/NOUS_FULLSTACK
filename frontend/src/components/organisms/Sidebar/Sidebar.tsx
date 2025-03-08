@@ -7,7 +7,7 @@ import {
   ListItemText,
   IconButton,
 } from "@mui/material";
-import { Inventory, Category, ShoppingCart, Dashboard, Menu } from "@mui/icons-material";
+import { Inventory, Category, ShoppingCart, Dashboard } from "@mui/icons-material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -47,7 +47,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Menu Permanente para Desktop */}
       {!isMobile && (
         <Drawer
           sx={{
@@ -72,7 +71,6 @@ export default function Sidebar() {
         </Drawer>
       )}
 
-      {/* Menu Toggle para Mobile */}
       {isMobile && (
         <>
           <IconButton

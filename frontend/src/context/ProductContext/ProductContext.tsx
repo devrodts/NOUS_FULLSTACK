@@ -2,11 +2,11 @@
 
 import React, { createContext, useReducer, useContext } from "react";
 import { ProductStateInterface } from "@/interfaces/product-state.interface";
-import { productReducer, INITIAL_STATE } from "./productReducer";
+import { productReducer, INITIAL_STATE, Action } from "./productReducer";
 
 interface ProductContextProps {
   state: ProductStateInterface;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<Action>;
 }
 
 
