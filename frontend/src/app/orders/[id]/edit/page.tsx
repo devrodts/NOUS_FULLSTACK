@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import useDeviceType from "@/hooks/useDeviceType"
 import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constants"
@@ -90,7 +90,7 @@ const handleSubmit = async () => {
       <TextField
         label="Id de produtos"
         name="productsIds"
-        placeholder={formData.productsIds}
+        placeholder={formData.productsIds.map((productId) => productId).join(", ")}
         // placeholder={formData.productsIds.map((productId) => productId).join(", ")}
         value={formData.productsIds}
         type="text"
