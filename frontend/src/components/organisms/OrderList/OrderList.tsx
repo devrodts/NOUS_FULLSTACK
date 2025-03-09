@@ -45,9 +45,7 @@ export default function OrderList({ orders }: { orders: OrderInterface[] }) {
             {orders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell>{order.id}</TableCell>
-                <TableCell>${order.total.toFixed(2)}</TableCell>
-                {/* <TableCell>{order.createdAt.toLocaleDateString()}</TableCell> */}
-                {/* <TableCell>{order.createdAt.getDate()}</TableCell> */}
+                <TableCell>${order.total}</TableCell>
                 <TableCell>
                   <Button
                     component={Link}

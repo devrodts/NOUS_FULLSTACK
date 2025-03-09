@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 import { OrderInterface } from '@/interfaces/order.interface';
 
 const useGetOrders = () => {
-    
+
   const [orders, setOrders] = useState<OrderInterface[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchOrders = async () => {
+
     try {
       setLoading(true);
       setError(null);
       
+      console.log('process.env.NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`);
       
       if (!response.ok) {
