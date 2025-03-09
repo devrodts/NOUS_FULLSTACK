@@ -7,9 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateOrderDto {
-  @IsMongoId()
-  @IsNotEmpty()
-  id: string;
 
   @IsArray()
   @IsNotEmpty()
@@ -18,16 +15,4 @@ export class CreateOrderDto {
   @IsNumber()
   @IsNotEmpty()
   total: number;
-
-  @IsDate()
-  @IsNotEmpty()
-  date: Date;
-
-  @IsDate()
-  @IsNotEmpty()
-  created_at: Date;
-
-  @IsDate()
-  @IsNotEmpty()
-  updated_at: Date;
 }
