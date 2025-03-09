@@ -1,0 +1,27 @@
+### Create a product
+
+POST http://localhost:3000/products
+
+Content-Type: application/json
+
+{
+    "name": "MacBook Pro 2025",
+    "price": 16.000,
+    "description": "MacBook Pro 2025",
+    "categoryIds": ["66d87162676630bc7384718a"]
+}
+
+
+
+### Delete Product By Id
+
+DELETE http://localhost:3000/products/3d139b7b-57be-4458-8d9f-be3c559d4897
+
+
+### Get All Products
+
+GET http://localhost:3000/products
+
+### Get Product By ID
+
+GET http://localhost:3000/products/28a3582b-223e-4bd2-a5ed-aba23c45af2e

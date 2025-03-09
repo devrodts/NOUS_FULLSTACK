@@ -10,7 +10,7 @@ import { DashboardModule } from './modules/dashboard/domain/dashboard.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Carrega variáveis de ambiente
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     ProductModule,
     CategoriesModule,
     OrdersModule,

@@ -8,8 +8,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: mongodb_nous
-      MONGODB_URI: mongodb://root:example@mongodb:27017/mongodb_nous?authSource=admin
+      MONGO_INITDB_DATABASE: mongodb
+      MONGODB_URI: mongodb://root:example@localhost:27017/mongodb?authSource=admin
     volumes:
       - mongodb_data:/data/db
     networks:
@@ -36,11 +36,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    networks:
-      - app-network
+    environment:
+       NODE_ENV: production
+       MONGO_URI: mongodb://root:example@mongodb:27017/mongodb?authSource=admin
+       MONGODB_URI: mongodb://root:example@mongodb:27017/mongodb?authSource=admin
     depends_on:
       - mongodb
       - localstack
+    networks:
+      - app-network
   frontend:
     build:
       context: frontend
