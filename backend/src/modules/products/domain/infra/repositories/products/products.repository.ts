@@ -24,8 +24,10 @@ export class ProductsRepository {
   }
 
   async deleteProductById(dto: DeleteProductDTO) {
+
     console.log('deleteProductById Repository :::::', dto);
     try {
+
       const product = await this.productModel.findOne({ id: dto.id });
       console.log('product :::::', product);
 
@@ -33,6 +35,11 @@ export class ProductsRepository {
         console.log('Product not found :::::', product);
         return null;
       }
+
+      await this.productModel.updateMany(
+        {productId: {$in: [dto.id]}},
+        {$pull: {productId: dto.id}}
+      )
 
       const deletedProduct = await this.productModel.findOneAndDelete({
         id: dto.id,
@@ -46,7 +53,6 @@ export class ProductsRepository {
       throw error;
     }
   }
-
   async findAllProducts() {
     try {
       return this.productModel.find();
