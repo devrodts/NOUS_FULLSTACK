@@ -1,3 +1,4 @@
+##### Atenção, ainda estou realizando modificações no projeto, dentre eles incluir o StoryBook, AWS S3 Local Bucket, Upload de Imagem, Deshboard com Métricas e gráficos, incluindo as integração de edit, delete, update e create em algumas partes.
 
 # Para rodar o projeto em localhost:
 
