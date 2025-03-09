@@ -92,4 +92,9 @@ export class CategoriesRepository {
       throw error;
     }
   }
+
+  async deleteMany() {
+    return this.categoryModel.deleteMany({});
+  }
+  
 }
