@@ -14,9 +14,11 @@ export default function ProductsPage() {
   const { products, loading, error } = state;
 
   const isMobile = useDeviceType()
+
   useEffect(() => {
     getProducts(dispatch);
   }, []);
+  
 
   if (loading) return (
     <>
