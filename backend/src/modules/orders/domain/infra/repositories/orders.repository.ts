@@ -17,8 +17,18 @@ export class OrdersRepository {
     return this.ordersModel.find();
   }
 
-  async findOrderById(id: string): Promise<Orders | null> {
-    return this.ordersModel.findOne({ id: id });
+  async findOrderById(_id: string): Promise<Orders | null> {
+    try {
+      const order = await this.ordersModel.findOne({ _id });
+      if (!order) {
+        console.log('Order not found :::::', order);
+        return null;
+      }
+      return order;
+    } catch (error) {
+      console.log('findOrderById :::::', error);
+      throw error;
+    }
   }
 
   async updateOrderById(id: string, order: Orders): Promise<Orders | null> {

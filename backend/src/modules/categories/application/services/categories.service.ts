@@ -3,14 +3,14 @@ import { CategoriesRepository } from '../../domain/infra/repositories/categories
 import { CreateCategoryDTO } from '../../domain/interface/dtos/create-category.dto';
 import { DeleteCategoryDTO } from '../../domain/interface/dtos/delete-category.dto';
 import { GetCategoryByIdDTO } from '../../domain/interface/dtos/get-category-by-id.dto';
-
+import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class CategoriesService {
   constructor(private readonly categoriesRepository: CategoriesRepository) {}
 
   async createCategory(dto: CreateCategoryDTO) {
     try {
-      return this.categoriesRepository.createCategory(dto);
+      return this.categoriesRepository.createCategory({...dto, id: uuidv4()});
     } catch (error) {
       console.log('Create Category Service ::::::::::: ', error);
       throw error;

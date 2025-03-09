@@ -275,7 +275,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Get Order By Id",
 					"request": {
 						"method": "GET",
 						"header": []
