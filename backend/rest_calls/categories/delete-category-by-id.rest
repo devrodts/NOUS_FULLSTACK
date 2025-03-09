@@ -1,4 +1,0 @@
-### Create Category
-
-DELETE http://localhost:3000/categories/c348afc1-d026-4f6e-b8bd-c142bdc6ea67
-Content-Type: application/json
