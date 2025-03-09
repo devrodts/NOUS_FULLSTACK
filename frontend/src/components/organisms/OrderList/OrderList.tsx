@@ -10,6 +10,7 @@ export default function OrderList({ orders }: { orders: OrderInterface[] }) {
   const isMobile = useDeviceType();
 
   const handleDelete = async (id: string) => {
+
     const response = await fetch(`http://localhost:3000/orders/${id}`, {
       method: "DELETE",
     })
@@ -43,9 +44,9 @@ export default function OrderList({ orders }: { orders: OrderInterface[] }) {
           </TableHead>
           <TableBody>
             {orders.map((order) => (
-              <TableRow key={order.id}>
+              <TableRow key={order.id.toString()}>
                 <TableCell>{order.id}</TableCell>
-                <TableCell>${order.total}</TableCell>
+                <TableCell>${order.total.toFixed(2)}</TableCell>
                 <TableCell>
                   <Button
                     component={Link}

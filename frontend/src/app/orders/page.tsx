@@ -16,7 +16,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     getAllOrders(dispatch as React.Dispatch<OrdersAction>);
-  }, []);
+  }, [dispatch]);
   
 
   if (loading) return (
