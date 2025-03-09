@@ -105,4 +105,8 @@ export class ProductsRepository {
       .select('_id')
       .exec();
   }
+
+  async deleteMany() {
+    return this.productModel.deleteMany({});
+  }
 }
