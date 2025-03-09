@@ -32,4 +32,8 @@ export class OrdersRepository {
   async aggregateOrders(pipeline: any[]): Promise<any[]> {
     return this.ordersModel.aggregate(pipeline).exec();
   }
+
+  async deleteMany() {
+    return this.ordersModel.deleteMany({});
+  }
 }
