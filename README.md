@@ -10,6 +10,10 @@
 ```
 
 ```bash
+  docker exec -it {NOME_DO_CONTAINER_BACKEND} yarn ts-node --require tsconfig-paths/register src/shared/seed/seed.ts
+```
+
+```bash
   cd ./backend/ 
 ```
 

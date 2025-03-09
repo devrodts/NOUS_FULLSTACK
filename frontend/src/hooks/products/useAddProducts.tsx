@@ -22,7 +22,7 @@ export const useAddProduct = () => {
       const product = await response.json();
       dispatch({ type: "ADD_PRODUCT", payload: product });
       return product;
-    } catch (error) { // Changed from 'err' to 'error'
+    } catch (error) {
       dispatch({ type: "SET_ERROR", payload: error instanceof Error ? error.message : "Erro desconhecido" });
       throw error;
     } finally {
