@@ -17,8 +17,8 @@ export default function ProductsPage() {
 
   useEffect(() => {
     getProducts(dispatch);
-  }, []);
-  
+  }, [dispatch]);
+
 
   if (loading) return (
     <>
