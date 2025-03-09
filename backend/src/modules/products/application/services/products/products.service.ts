@@ -6,28 +6,25 @@ import { DeleteProductDTO } from 'src/modules/products/domain/interface/dtos/pro
 
 @Injectable()
 export class ProductsService {
-
   constructor(private readonly productsRepository: ProductsRepository) {}
 
   createProduct(dto: CreateProductDTO) {
-    return this.productsRepository.createProduct(dto)
+    return this.productsRepository.createProduct(dto);
   }
 
-  deleteProductById(dto: DeleteProductDTO){
-    return this.productsRepository.deleteProductById({id: dto.id})
+  deleteProductById(dto: DeleteProductDTO) {
+    return this.productsRepository.deleteProductById({ id: dto.id });
   }
 
-  findAllProducts(){
+  findAllProducts() {
     return this.productsRepository.findAllProducts();
   }
 
-  getProductById(dto: DeleteProductDTO){
+  getProductById(dto: DeleteProductDTO) {
     return this.productsRepository.getProductById(dto);
   }
 
-  updateProductById(id: string, dto: Partial<UpdateProductDTO>){
+  updateProductById(id: string, dto: Partial<UpdateProductDTO>) {
     return this.productsRepository.updateProductById(id, dto);
   }
-
-  
 }

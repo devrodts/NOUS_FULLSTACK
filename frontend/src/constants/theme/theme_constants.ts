@@ -12,4 +12,12 @@ export const mobileMainSyle: React.CSSProperties = {
 export const desktopMainSyle: React.CSSProperties = {  
     width:"60vw",
     margin: "20px auto"
-  }
+}
+
+export const pageMainLoadingStyle: React.CSSProperties = {
+  display: 'flex', 
+  justifyContent: 'center', 
+  alignItems: 'center', 
+  height: '100vh', 
+  marginTop: '50px'
+};

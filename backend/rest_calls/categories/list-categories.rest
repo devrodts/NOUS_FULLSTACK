@@ -1,7 +1,0 @@
-### List all categories
-
-GET http://localhost:3000/categories
-
-
-
-

@@ -1,11 +1,12 @@
 
-### O Projeto está sendo finalizado, após finalizado ele rodará com apenas um comando docker, subindo todas as aplicações e já conectadas entre si, enquanto isso: 
-
-
 # Para rodar o projeto em localhost:
 
 ```bash
-    docker-compose up -d 
+  docker-compose build
+```
+
+```bash
+  docker-compose up
 ```
 
 ```bash
@@ -13,27 +14,7 @@
 ```
 
 ```bash
-  yarn install 
-```
-
-### repita o mesmo processo para a pasta do front end e em seguida:
-
-##### dntro de backend/
-
-```bash
-  nest start
-```
-
-
-##### para popular o banco de dados
-```bash
-  yarn seed
-```
-
-
-#### dentro de frontend/
-```bash
-  yarn dev
+  yarn seed 
 ```
 
 ---
@@ -139,3 +120,82 @@ backend/
 
 Essas boas práticas garantem um código mais limpo, modular e alinhado com os princípios de engenharia de software modernos, facilitando tanto a leitura quanto a manutenção do projeto.
 
+---
+
+# Arquitetura e Boas Práticas (Frontend - Next + TypeScript)
+
+Este projeto foi desenvolvido seguindo princípios de *Component-Driven Development (CDD)* e outras boas práticas de desenvolvimento como Atomic Design. A seguir, estão descritos os principais conceitos e padrões utilizados, bem como a estrutura de pastas adotada.
+
+## Component-Driven Development (CDD)
+
+- **Separação de Componentes**:  
+  A interface do usuário é dividida em componentes reutilizáveis, garantindo que cada parte do sistema seja responsável por uma funcionalidade específica (por exemplo, `ProductList`).
+
+- **Camadas de Abstração**:  
+  O projeto está estruturado em diferentes camadas, permitindo uma melhor manutenção e escalabilidade:
+  - **Componentes**: Representam as unidades básicas da interface do usuário (e.g., `Button`, `Card`) que encapsulam a lógica e a apresentação.
+  - **Hooks**: Utilizados para gerenciar o estado e os efeitos colaterais, promovendo a reutilização de lógica entre componentes.
+  - **Context API**: Fornece um meio de compartilhar dados entre componentes sem a necessidade de passar props manualmente em cada nível da árvore de componentes.
+  - **Serviços**: Contêm a lógica de comunicação com APIs externas, centralizando as chamadas de rede e o tratamento de dados.
+
+## Uso de Hooks
+
+- **Gerenciamento de Estado e Efeitos**:  
+  Os hooks são utilizados para gerenciar o estado local e os efeitos colaterais nos componentes funcionais (e.g., `useState`, `useEffect`).
+
+- **Custom Hooks**:  
+  Hooks personalizados são criados para encapsular e reutilizar lógica complexa, como a busca de dados ou a manipulação de formulários.
+
+## Context API
+
+- **Gerenciamento de Estado Global**:  
+  O Context API é utilizado para gerenciar o estado global da aplicação, permitindo que dados como o usuário autenticado ou o tema sejam acessados por qualquer componente.
+
+- **Facilidade de Integração**:  
+  A integração com hooks como `useContext` facilita o acesso e a manipulação do estado global.
+
+## Serviços
+
+- **Comunicação com APIs**:  
+  Os serviços centralizam as chamadas de rede, utilizando `fetch` para interagir com APIs RESTful.
+
+- **Tratamento de Erros e Dados**:  
+  Os serviços são responsáveis por tratar erros de rede e formatar dados antes de passá-los para os componentes.
+
+
+## Estrutura de Pastas
+
+A estrutura de pastas está organizada de forma a refletir os conceitos do CDD, mantendo uma separação clara entre as diversas camadas e responsabilidades:
+
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── atoms/
+│   │   │   └── Button.tsx                // Componentes básicos e reutilizáveis
+│   │   ├── molecules/
+│   │   │   └── ProductCard.tsx           // Componentes compostos por átomos
+│   │   └── organisms/
+│   │       └── ProductList.tsx           // Componentes complexos compostos por moléculas
+│   ├── hooks/
+│   │   ├── useProducts.ts                // Hooks personalizados para lógica de negócios
+│   │   └── useAuth.ts
+│   ├── context/
+│   │   └── ProductContext.tsx            // Contextos para gerenciamento de estado global
+│   ├── services/
+│   │   └── api.ts                        // Serviços para comunicação com APIs
+│   ├── pages/
+│   │   └── Home.tsx                      // Páginas da aplicação
+│   └── App.tsx                           // Componente raiz da aplicação
+```
+
+## Benefícios e Conclusão
+
+- **Manutenibilidade**:  
+  A clara separação de responsabilidades facilita a manutenção e expansão do sistema, já que alterações em um componente não afetam diretamente outros componentes.
+
+- **Reutilização**:  
+  Componentes e hooks reutilizáveis promovem a consistência e reduzem a duplicação de código.
+
+- **Escalabilidade**:  
+  Um projeto organizado segundo os princípios CDD permite que novas funcionalidades sejam adicionadas sem comprometer o código existente, promovendo uma evolução sustentável do sistema.

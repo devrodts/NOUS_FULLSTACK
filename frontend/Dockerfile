@@ -16,8 +16,12 @@ WORKDIR /app
 
 COPY --from=builder /app ./
 
+COPY .env .env
+
 EXPOSE 3003
 
 ENV NODE_ENV=production
+
+CMD ["yarn", "seed"]
 
 CMD ["yarn", "start"]

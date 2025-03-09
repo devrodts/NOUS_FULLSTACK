@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { OrdersRepository } from 'src/modules/orders/domain/infra/repositories/orders.repository';
-import { ProductsRepository } from "src/modules/products/domain/infra/repositories/products/products.repository";
-
+import { ProductsRepository } from 'src/modules/products/domain/infra/repositories/products/products.repository';
 
 @Injectable()
-
 export class DashboardService {
   constructor(
     private readonly orderRepository: OrdersRepository,
@@ -12,10 +10,10 @@ export class DashboardService {
   ) {}
 
   async getMetrics(
-    startDate: string, 
-    endDate: string, 
-    categoryId?: string, 
-    productId?: string
+    startDate: string,
+    endDate: string,
+    categoryId?: string,
+    productId?: string,
   ) {
     const matchStage: any = {
       date: {
@@ -43,26 +41,28 @@ export class DashboardService {
       },
     ];
 
-   
     if (categoryId) {
       // Buscar produtos da categoria usando o repository
-      const productsInCategory = await this.productRepository.findProductsByCategoryId(categoryId);
-      
-      const productIds = productsInCategory.map(p => p.id.toString());
-      
-      matchStage.productIds = { 
-        $elemMatch: { $in: productIds } 
+      const productsInCategory =
+        await this.productRepository.findProductsByCategoryId(categoryId);
+
+      const productIds = productsInCategory.map((p) => p.id.toString());
+
+      matchStage.productIds = {
+        $elemMatch: { $in: productIds },
       };
     }
 
     const metrics = await this.orderRepository.aggregateOrders(pipeline);
-    return metrics[0] || {
-      totalOrders: 0,
-      totalRevenue: 0,
-      averageOrderValue: 0,
-      minOrderValue: 0,
-      maxOrderValue: 0,
-    };
+    return (
+      metrics[0] || {
+        totalOrders: 0,
+        totalRevenue: 0,
+        averageOrderValue: 0,
+        minOrderValue: 0,
+        maxOrderValue: 0,
+      }
+    );
   }
 
   async getSalesByPeriod(
@@ -72,12 +72,12 @@ export class DashboardService {
   ) {
     const dateFormat = {
       daily: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
-      weekly: { 
+      weekly: {
         $concat: [
           { $toString: { $isoWeekYear: '$date' } },
           '-W',
-          { $toString: { $isoWeek: '$date' } }
-        ]
+          { $toString: { $isoWeek: '$date' } },
+        ],
       },
       monthly: { $dateToString: { format: '%Y-%m', date: '$date' } },
       yearly: { $dateToString: { format: '%Y', date: '$date' } },

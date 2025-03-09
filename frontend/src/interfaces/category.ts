@@ -4,7 +4,7 @@ export interface Category {
     id: string;
     name: string;
     description?: string;
-    products?: ProductInterface[]; // Relacionamento com produtos
+    products?: ProductInterface[]; 
     createdAt: Date;
     updatedAt: Date;
   }

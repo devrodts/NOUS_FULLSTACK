@@ -8,14 +8,17 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mongodb
+      MONGODB_URI: mongodb://root:example@localhost:27017/mongodb?authSource=admin
     volumes:
       - mongodb_data:/data/db
-
+    networks:
+      - app-network
   localstack:
     image: localstack/localstack:latest
     container_name: localstack
     ports:
-      - "4566:4566"  # Porta principal do LocalStack
+      - "4566:4566" 
     environment:
       - SERVICES=s3
       - DEFAULT_REGION=us-east-1
@@ -25,7 +28,40 @@ services:
     volumes:
       - localstack_data:/var/lib/localstack
       - "/var/run/docker.sock:/var/run/docker.sock"
-
+    networks:
+      - app-network
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+       NODE_ENV: production
+       MONGO_URI: mongodb://root:example@mongodb:27017/mongodb?authSource=admin
+       MONGODB_URI: mongodb://root:example@mongodb:27017/mongodb?authSource=admin
+    depends_on:
+      - mongodb
+      - localstack
+    networks:
+      - app-network
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+      - mongodb
+      - localstack
 volumes:
   mongodb_data:
   localstack_data:
+
+networks:
+  app-network:
+    driver: bridge
+  

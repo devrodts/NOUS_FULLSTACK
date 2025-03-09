@@ -16,7 +16,7 @@ export default function ProductPage() {
   description: string,
   image: string,
  }
-const { id, name, price, stock, description, image } = useParams()
+const { id, name, price, stock, description } = useParams()
 const isMobile = useDeviceType();
 const router = useRouter();
 const [formData, setFormData] = useState<formData>({

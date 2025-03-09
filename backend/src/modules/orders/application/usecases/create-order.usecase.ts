@@ -1,14 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { OrdersService } from "../services/orders.service";
-import { CreateOrderDto } from "../../domain/interface/dtos/create-order.dto";
+import { Injectable } from '@nestjs/common';
+import { OrdersService } from '../services/orders.service';
+import { CreateOrderDto } from '../../domain/interface/dtos/create-order.dto';
 
-import { Orders } from "../../domain/entities/orders.entity";
+import { Orders } from '../../domain/entities/orders.entity';
 @Injectable()
-export class CreateOrderUsecase {   
-    constructor(private readonly ordersService: OrdersService) {}
+export class CreateOrderUsecase {
+  constructor(private readonly ordersService: OrdersService) {}
 
-    async execute(dto: CreateOrderDto): Promise<Orders> {
-        return this.ordersService.createOrder(dto);
-    }
+  async execute(dto: CreateOrderDto): Promise<Orders> {
+    return this.ordersService.createOrder(dto);
+  }
 }
-

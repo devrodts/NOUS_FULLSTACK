@@ -9,8 +9,13 @@ export class GetMetricsUseCase {
     startDate: string,
     endDate: string,
     categoryId?: string,
-    productId?: string
+    productId?: string,
   ) {
-    return this.dashboardService.getMetrics(startDate, endDate, categoryId, productId);
+    return this.dashboardService.getMetrics(
+      startDate,
+      endDate,
+      categoryId,
+      productId,
+    );
   }
 }

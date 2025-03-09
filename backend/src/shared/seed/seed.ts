@@ -1,42 +1,18 @@
 import { Command } from 'commander';
-import mongoose from 'mongoose';
+import { NestFactory } from '@nestjs/core';
+
+import { AppModule } from '../../app.module';
+import { Category } from 'src/modules/categories/domain/entities/categories.entity';
+
+import { CategoriesRepository } from 'src/modules/categories/domain/infra/repositories/categories.repository';
+import { ProductsRepository } from 'src/modules/products/domain/infra/repositories/products/products.repository';
+import { OrdersRepository } from 'src/modules/orders/domain/infra/repositories/orders.repository';
+import { Orders } from 'src/modules/orders/domain/entities/orders.entity';
+import { Product } from 'src/modules/products/domain/entities/products.entity';
+
 import { faker } from '@faker-js/faker';
 
-
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
-import * as path from 'path';
-
-dotenv.config();
-
 const program = new Command();
-
-const CategorySchema = new mongoose.Schema({
-  id: { type: String, default: () => new mongoose.Types.ObjectId().toString() },
-  name: String,
-  description: String
-});
-
-const ProductSchema = new mongoose.Schema({
-  id: { type: String, default: () => new mongoose.Types.ObjectId().toString() },
-  name: String,
-  description: String,
-  price: Number,
-  categoryIds: [String],
-  imageUrl: String,
-  stock: Number
-});
-
-const OrderSchema = new mongoose.Schema({
-  id: { type: String, default: () => new mongoose.Types.ObjectId().toString() },
-  date: Date,
-  productIds: [String],
-  total: Number
-});
-
-const Category = mongoose.model('Category', CategorySchema);
-const Product = mongoose.model('Product', ProductSchema);
-const Order = mongoose.model('Order', OrderSchema);
 
 program
   .version('1.0.0')
@@ -49,126 +25,84 @@ program
 
 const options = program.opts();
 
-async function connectToDatabase() {
-  const uri = process.env.MONGODB_URI || 'mongodb://root:example@localhost:27017/';
+async function main(options) {
+  const app = await NestFactory.createApplicationContext(AppModule);
   
-  try {
-    await mongoose.connect(uri);
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error('Failed to connect to MongoDB', error);
-    process.exit(1);
-  }
-}
+  const categoriesRepository = app.get(CategoriesRepository);
+  const productsRepository = app.get(ProductsRepository);
+  const ordersRepository = app.get(OrdersRepository);
 
-async function clearCollections() {
-    
-    if (options.delete) {
-      console.log('Clearing existing data...');
-      await Category.collection.dropIndex("id_1").catch(err => {
-        if (err.codeName !== 'IndexNotFound') {
-          console.error('Error dropping index:', err);
-        }
-      });
-      await Category.deleteMany({});
-      await Product.deleteMany({});
-      await Order.deleteMany({});
-      console.log('Collections cleared');
-    }
-  }
 
-async function createCategories(count: number) {
-  console.log(`Creating ${count} categories...`);
-  const categories: any[] = [];
-  
-  for (let i = 0; i < count; i++) {
-    const category = await Category.create({
+  console.log('Clearing existing data...');
+  await categoriesRepository.deleteMany();
+  await productsRepository.deleteMany();
+  await ordersRepository.deleteMany();
+  console.log('Collections cleared');
+
+
+  console.log(`Creating ${options.categories} categories...`);
+  const categories: Category[] = [];
+  for (let i = 0; i < parseInt(options.categories); i++) {
+    const category = await categoriesRepository.createCategory({
+      id: faker.string.uuid(),
       name: faker.commerce.department(),
-      description: faker.commerce.productDescription()
     });
     categories.push(category);
   }
-  
-  console.log(`Created ${categories.length} categories`);
-  return categories;
-}
 
-async function createProducts(count: number, categories: any[]) {
-  console.log(`Creating ${count} products...`);
-  const products: any[] = [];
-  
-  for (let i = 0; i < count; i++) {
 
+  console.log(`Creating ${options.products} products...`);
+  const products: Product[] = [];
+  for (let i = 0; i < parseInt(options.products); i++) {
     const numCategories = faker.number.int({ min: 1, max: 5 });
     const categoryIds = faker.helpers.arrayElements(
-      categories.map(c => c.id.toString()),
-      numCategories
+      categories.map((c) => c.id.toString()),
+      numCategories,
     );
-    
-    const product = await Product.create({
+  
+    const product = await productsRepository.createProduct({
       name: faker.commerce.productName(),
-      description: faker.commerce.productDescription(),
-      price: parseFloat(faker.commerce.price({ min: 1, max: 10})),
+      price: parseFloat(faker.commerce.price({ min: 1, max: 10 })),
       categoryIds,
       imageUrl: faker.image.url(),
-      stock: faker.number.int({ min: 0, max: 10})
+      description: faker.commerce.productDescription(),
     });
-    
     products.push(product);
   }
-  
-  console.log(`Created ${products.length} products`);
-  return products;
-}
 
-async function createOrders(count: number, products: any[]) {
-  console.log(`Creating ${count} orders...`);
-  const orders: any[] = [];
-  
+  console.log(`Creating ${options.orders} orders...`);
+  const orders: Orders[] = [];
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-  
-  for (let i = 0; i < count; i++) {
 
+  for (let i = 0; i < parseInt(options.orders); i++) {
     const numProducts = faker.number.int({ min: 1, max: 10 });
     const orderProducts = faker.helpers.arrayElements(products, numProducts);
-    const productIds = orderProducts.map(p => p.id.toString());
-    
+    const productIds = orderProducts.map((p) => p.id.toString());
+  
     const total = orderProducts.reduce((sum, p) => sum + p.price, 0);
-    
     const date = faker.date.between({ from: oneYearAgo, to: new Date() });
-    
-    const order = await Order.create({
+  
+    const order = await ordersRepository.createOrder({
+      id: faker.string.uuid(),
       date,
-      productIds,
-      total
+      productsIds: productIds, 
+      total,
+      created_at: new Date(), 
+      updated_at: new Date(), 
     });
-    
     orders.push(order);
   }
-  
-  console.log(`Created ${orders.length} orders`);
-  return orders;
-}
 
-async function main() {
-  await connectToDatabase();
-  await clearCollections();
-  
-  const categories = await createCategories(parseInt(options.categories));
-  const products = await createProducts(parseInt(options.products), categories);
-  const orders = await createOrders(parseInt(options.orders), products);
-  
   console.log('\n=== Seeding Complete ===');
   console.log(`Created ${categories.length} categories`);
   console.log(`Created ${products.length} products`);
   console.log(`Created ${orders.length} orders`);
   
-  await mongoose.disconnect();
-  console.log('Disconnected from MongoDB');
+  await app.close();
 }
 
-main().catch(error => {
+main(options).catch((error) => {
   console.error('Error seeding database', error);
   process.exit(1);
 });

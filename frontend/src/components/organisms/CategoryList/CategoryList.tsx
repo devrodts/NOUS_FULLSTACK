@@ -15,7 +15,7 @@ export default function CategoryList({ categories }: { categories: CategoryInter
         href="/categories/new"
         variant="contained"
         color="primary"
-        style={{ marginBottom: "20px" }}
+        style={{ marginBottom: "30px" }}
       >
         Add New Category
       </Button>

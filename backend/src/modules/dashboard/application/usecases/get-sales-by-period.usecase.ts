@@ -8,7 +8,7 @@ export class GetSalesByPeriodUseCase {
   async execute(
     period: 'daily' | 'weekly' | 'monthly' | 'yearly',
     startDate: string,
-    endDate: string
+    endDate: string,
   ) {
     return this.dashboardService.getSalesByPeriod(period, startDate, endDate);
   }

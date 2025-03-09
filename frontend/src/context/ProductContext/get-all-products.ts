@@ -1,4 +1,6 @@
-const getProducts = async (dispatch: React.Dispatch<any>) => {
+import { Action } from "@/interfaces";
+
+const getProducts = async (dispatch: React.Dispatch<Action>) => {
   try {
     dispatch({ type: 'SET_LOADING', payload: true})
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);

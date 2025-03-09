@@ -1,9 +1,11 @@
 "use client"
+
 import AddModal from "@/components/molecules/AddModal/AddModal";
 import { useState } from "react";
 import { Typography } from "@mui/material"; 
 
 export default function NewProduct(){
+    
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

@@ -1,6 +1,6 @@
 "use client"
 import { ProductInterface } from "@/interfaces/product"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Box, TextField } from "@mui/material"
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, TextField } from "@mui/material"
 import Link from "next/link"
 import AddModal from "../../molecules/AddModal/AddModal"
 import { useEffect, useState } from "react"
@@ -11,6 +11,7 @@ import { useProductContext } from "@/context/ProductContext/ProductContext"
 import LinearLoading from "../../atoms/LinearLoading/LinearLoading"
 import ClearIcon from '@mui/icons-material/Clear';
 import useDeviceType from '@/hooks/useDeviceType';
+import Image from "next/image"
 
 export default function ProductList({ products }: { products: ProductInterface[] }) {
     const { state, dispatch } = useProductContext();
@@ -19,13 +20,13 @@ export default function ProductList({ products }: { products: ProductInterface[]
     const handleClose = () => setOpen(false)
     
 
-    const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0]
-      if(file){
-        const formData = new FormData()
-        formData.append("image", file)
-      }
-    }
+    // const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
+    //   const file = event.target.files?.[0]
+    //   if(file){
+    //     const formData = new FormData()
+    //     formData.append("image", file)
+    //   }
+    // }
     
 
     const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
@@ -137,7 +138,7 @@ export default function ProductList({ products }: { products: ProductInterface[]
             {products.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>
-                  <img src={product.imageUrl} alt={product.name} style={{ width: "100px", height: "100px" }} />
+                  <Image src={product.imageUrl} alt={product.name} width={100} height={100} />
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>${product.price.toFixed(2)}</TableCell>

@@ -1,3 +1,3 @@
-export class GetCategoryByIdDTO{
-    id: string;
+export class GetCategoryByIdDTO {
+  id: string;
 }
