@@ -7,6 +7,7 @@ import { mobileMainSyle, desktopMainSyle } from "@/constants/theme/theme_constan
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
+  
   const isMobile = useDeviceType();
 
   useEffect(() => {

@@ -24,6 +24,10 @@
 #### o backend rodará em http://localhost:3000
 ---
 
+#### o frontend rodará em http://localhost:3003
+
+#### o backend rodará em http://localhost:3000
+
 # Arquitetura e Boas Práticas (Backend - Nest.Js + Typescript)
 
 Este projeto foi desenvolvido seguindo princípios de *Domain Driven Design (DDD)* e outras boas práticas de desenvolvimento. A seguir, estão descritos os principais conceitos e padrões utilizados, bem como a estrutura de pastas adotada.
