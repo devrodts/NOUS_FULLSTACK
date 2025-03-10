@@ -12,7 +12,8 @@ import LinearLoading from "../../atoms/LinearLoading/LinearLoading"
 import ClearIcon from '@mui/icons-material/Clear';
 import useDeviceType from '@/hooks/useDeviceType';
 import Image from "next/image"
-
+import SearchInput from "../../atoms/SearchInput/SearchInput"
+import { desktopModalStyles, mobileModalStyles, searchInputStyle } from "@/constants/theme/theme_constants"
 export default function ProductList({ products }: { products: ProductInterface[] }) {
     const { state, dispatch } = useProductContext();
     const [open, setOpen] = useState(false)
@@ -50,28 +51,6 @@ export default function ProductList({ products }: { products: ProductInterface[]
 
     const isMobile = useDeviceType();
 
-    const mobileModalStyles: React.CSSProperties = {
-      width: "90vw",
-      maxWidth: "none",
-      margin: "1vh 2.5vh",
-      backgroundColor: "white",
-      border:"none",
-      padding: "20px",
-      borderRadius: "10px",
-      boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
-      flexDirection: "column",
-      justifyContent: "center",
-    }
-
-    const desktopModalStyles: React.CSSProperties = {
-      width: "50vw",
-      padding: "40px",
-      margin: "0 auto",
-      backgroundColor: "white",
-      border:"none",
-      marginTop: "12vh",
-      borderRadius: "16px",
-    }
 
     const titleMobileStyles: React.CSSProperties = {
       marginTop: "70px",
@@ -94,6 +73,10 @@ export default function ProductList({ products }: { products: ProductInterface[]
       >
         Add New Product
       </Button>
+      <SearchInput 
+        placeholder="Search" 
+        style={searchInputStyle}
+      />
       <AddModal 
         open={open} 
         onClose={handleClose} 
