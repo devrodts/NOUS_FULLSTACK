@@ -17,6 +17,9 @@
   docker exec -it {NOME_DO_CONTAINER_BACKEND} yarn ts-node --require tsconfig-paths/register src/shared/seed/seed.ts
 ```
 
+#### o frontend rodará em http://localhost:3003
+
+#### o backend rodará em http://localhost:3000
 ---
 
 # Arquitetura e Boas Práticas (Backend - Nest.Js + Typescript)
