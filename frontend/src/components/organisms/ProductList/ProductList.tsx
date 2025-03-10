@@ -138,7 +138,7 @@ export default function ProductList({ products }: { products: ProductInterface[]
             {products.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>
-                  <Image src={product.image} alt={product.name} width={100} height={100} />
+                  {product.imageUrl && <Image src={product.imageUrl} alt={product.name} width={100} height={100} />}
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>${product.price.toFixed(2)}</TableCell>
