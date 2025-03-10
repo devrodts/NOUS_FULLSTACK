@@ -103,7 +103,7 @@ export default function Sidebar() {
                   key={item.text}
                   component={Link}
                   href={item.path}
-                  onClick={toggleDrawer} // Fecha o menu após clicar
+                  onClick={toggleDrawer} 
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
