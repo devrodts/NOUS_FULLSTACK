@@ -1,7 +1,8 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material"
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Divider } from "@mui/material"
 import Link from "next/link"
 import { CategoryInterface } from "@/interfaces/category.interface"
 import useDeviceType from "@/hooks/useDeviceType"
+import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 
 export default function CategoryList({ categories }: { categories: CategoryInterface[] }) {
   const isMobile = useDeviceType();
@@ -19,6 +20,9 @@ export default function CategoryList({ categories }: { categories: CategoryInter
       >
         Add New Category
       </Button>
+
+      <SearchInput placeholder="Search your category..." />
+      <Divider style={{ marginBottom: "40px" }} />
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

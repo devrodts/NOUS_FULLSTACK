@@ -1,6 +1,6 @@
 "use client"
 import { ProductInterface } from "@/interfaces/product"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, TextField } from "@mui/material"
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, TextField, Divider } from "@mui/material"
 import Link from "next/link"
 import AddModal from "../../molecules/AddModal/AddModal"
 import { useEffect, useState } from "react"
@@ -15,6 +15,7 @@ import Image from "next/image"
 import SearchInput from "../../atoms/SearchInput/SearchInput"
 import { desktopModalStyles, mobileModalStyles, searchInputStyle } from "@/constants/theme/theme_constants"
 export default function ProductList({ products }: { products: ProductInterface[] }) {
+
     const { state, dispatch } = useProductContext();
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
@@ -75,8 +76,8 @@ export default function ProductList({ products }: { products: ProductInterface[]
       </Button>
       <SearchInput 
         placeholder="Search" 
-        style={searchInputStyle}
       />
+      <Divider style={{ marginBottom: "40px" }} />
       <AddModal 
         open={open} 
         onClose={handleClose} 

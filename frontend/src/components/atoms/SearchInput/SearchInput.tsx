@@ -6,6 +6,7 @@ const SearchInput = ({placeholder, value, onChange, onBlur, onFocus, onKeyDown, 
     return (
         <div className={styles.input_div}>
             <input 
+                className={styles.input}
                 type="search"
                 placeholder={placeholder} 
                 value={value} 
@@ -14,7 +15,6 @@ const SearchInput = ({placeholder, value, onChange, onBlur, onFocus, onKeyDown, 
                 onFocus={onFocus} 
                 onKeyDown={onKeyDown} 
                 onKeyUp={onKeyUp} 
-                className={`${styles.input} ${className}`} 
                 style={style} 
             />
             <SearchIcon className={styles.input_icon} />
