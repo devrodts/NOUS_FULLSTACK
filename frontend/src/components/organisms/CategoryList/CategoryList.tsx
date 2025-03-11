@@ -4,9 +4,9 @@ import { CategoryInterface } from "@/interfaces/category.interface"
 import useDeviceType from "@/hooks/useDeviceType"
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 
+
 export default function CategoryList({ categories }: { categories: CategoryInterface[] }) {
   const isMobile = useDeviceType();
-
 
   return (
     <div>
