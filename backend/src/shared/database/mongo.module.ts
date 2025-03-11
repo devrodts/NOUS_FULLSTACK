@@ -8,7 +8,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const uri = configService.get<string>('MONGODB_URI') || configService.get<string>('MONGO_URI');
+        const uri =
+          configService.get<string>('MONGODB_URI') ||
+          configService.get<string>('MONGO_URI');
         return {
           uri,
           useNewUrlParser: true,

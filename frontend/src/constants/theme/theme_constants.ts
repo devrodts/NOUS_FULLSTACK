@@ -26,7 +26,7 @@ export const pageMainLoadingStyle: React.CSSProperties = {
 export const searchInputStyle: React.CSSProperties = {
   // width: window.innerWidth < 900 ? '100%' : '300px',
   width: '100%',
-  height: '30px',
+  height: '40px',
   border: '1px solid #ccc',
   borderRadius: '5px',
   paddingLeft: '10px',

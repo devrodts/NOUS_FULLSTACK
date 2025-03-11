@@ -45,18 +45,18 @@ services:
       - localstack
     networks:
       - app-network
-  frontend:
-    build:
-      context: frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3003:3003"
-    networks:
-      - app-network
-    depends_on:
-      - backend
-      - mongodb
-      - localstack
+  # frontend:
+  #   build:
+  #     context: frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3003:3003"
+  #   networks:
+  #     - app-network
+  #   depends_on:
+  #     - backend
+  #     - mongodb
+  #     - localstack
 volumes:
   mongodb_data:
   localstack_data:
