@@ -25,25 +25,24 @@ export class CategoriesRepository {
   }
 
   async deleteCategoryById(dto: DeleteCategoryDTO) {
-
     this.logger.log('deleteCategoryById Repository :::::', dto);
     try {
       const category = await this.categoryModel.findOne({ id: dto.id });
       this.logger.log('category :::::', category);
-      
+
       if (!category) {
         this.logger.log('Category not found :::::', category);
         return null;
       }
 
       await this.categoryModel.updateMany(
-        {categoryId: {$in: [dto.id]}},
-        {$pull: {categoryId: dto.id}}
-      )
+        { categoryId: { $in: [dto.id] } },
+        { $pull: { categoryId: dto.id } },
+      );
       const deletedCategory = await this.categoryModel.findOneAndDelete({
         id: dto.id,
       });
-      
+
       if (!deletedCategory) {
         this.logger.log('deleteCategoryById REPOSITORY :::::', deletedCategory);
       }
@@ -103,5 +102,4 @@ export class CategoriesRepository {
   async deleteMany() {
     return this.categoryModel.deleteMany({});
   }
-  
 }

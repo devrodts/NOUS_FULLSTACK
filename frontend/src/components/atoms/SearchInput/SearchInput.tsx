@@ -1,21 +1,10 @@
-
-interface SearchInputInterface {
-    placeholder?: string;
-    value?: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-    onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-    onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-    onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-    className?: string;
-    style?: React.CSSProperties;
-}
-
+import { SearchInputInterface } from "./search-input.interface";
+import styles from "./SearchInput.module.css";
 import SearchIcon from '@mui/icons-material/Search';
 
 const SearchInput = ({placeholder, value, onChange, onBlur, onFocus, onKeyDown, onKeyUp, className, style}: SearchInputInterface) => {
     return (
-        <div>
+        <div className={styles.input_div}>
             <input 
                 type="search"
                 placeholder={placeholder} 
@@ -25,10 +14,10 @@ const SearchInput = ({placeholder, value, onChange, onBlur, onFocus, onKeyDown, 
                 onFocus={onFocus} 
                 onKeyDown={onKeyDown} 
                 onKeyUp={onKeyUp} 
-                className={className} 
+                className={`${styles.input} ${className}`} 
                 style={style} 
             />
-            <SearchIcon className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-500" />
+            <SearchIcon className={styles.input_icon} />
         </div>
     )
 }

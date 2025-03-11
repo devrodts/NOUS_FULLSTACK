@@ -27,18 +27,16 @@ const options = program.opts();
 
 async function main(options) {
   const app = await NestFactory.createApplicationContext(AppModule);
-  
+
   const categoriesRepository = app.get(CategoriesRepository);
   const productsRepository = app.get(ProductsRepository);
   const ordersRepository = app.get(OrdersRepository);
-
 
   console.log('Clearing existing data...');
   await categoriesRepository.deleteMany();
   await productsRepository.deleteMany();
   await ordersRepository.deleteMany();
   console.log('Collections cleared');
-
 
   console.log(`Creating ${options.categories} categories...`);
   const categories: Category[] = [];
@@ -50,7 +48,6 @@ async function main(options) {
     categories.push(category);
   }
 
-
   console.log(`Creating ${options.products} products...`);
   const products: Product[] = [];
   for (let i = 0; i < parseInt(options.products); i++) {
@@ -59,7 +56,7 @@ async function main(options) {
       categories.map((c) => c.id.toString()),
       numCategories,
     );
-  
+
     const product = await productsRepository.createProduct({
       name: faker.commerce.productName(),
       price: parseFloat(faker.commerce.price({ min: 1, max: 10 })),
@@ -79,17 +76,17 @@ async function main(options) {
     const numProducts = faker.number.int({ min: 1, max: 10 });
     const orderProducts = faker.helpers.arrayElements(products, numProducts);
     const productIds = orderProducts.map((p) => p.id.toString());
-  
+
     const total = orderProducts.reduce((sum, p) => sum + p.price, 0);
     const date = faker.date.between({ from: oneYearAgo, to: new Date() });
-  
+
     const order = await ordersRepository.createOrder({
       id: faker.string.uuid(),
       date,
-      productsIds: productIds, 
+      productsIds: productIds,
       total,
-      created_at: new Date(), 
-      updated_at: new Date(), 
+      created_at: new Date(),
+      updated_at: new Date(),
     });
     orders.push(order);
   }
@@ -98,7 +95,7 @@ async function main(options) {
   console.log(`Created ${categories.length} categories`);
   console.log(`Created ${products.length} products`);
   console.log(`Created ${orders.length} orders`);
-  
+
   await app.close();
 }
 

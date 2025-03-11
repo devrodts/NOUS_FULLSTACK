@@ -24,10 +24,8 @@ export class ProductsRepository {
   }
 
   async deleteProductById(dto: DeleteProductDTO) {
-
     console.log('deleteProductById Repository :::::', dto);
     try {
-
       const product = await this.productModel.findOne({ id: dto.id });
       console.log('product :::::', product);
 
@@ -37,9 +35,9 @@ export class ProductsRepository {
       }
 
       await this.productModel.updateMany(
-        {productId: {$in: [dto.id]}},
-        {$pull: {productId: dto.id}}
-      )
+        { productId: { $in: [dto.id] } },
+        { $pull: { productId: dto.id } },
+      );
 
       const deletedProduct = await this.productModel.findOneAndDelete({
         id: dto.id,

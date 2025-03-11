@@ -1,6 +1,8 @@
+### MVP Dashboard CRM para gerenciamento de Produtos e Pedidos (Nous Latam Challange).
+
 ##### Atenção, ainda estou realizando modificações no projeto, dentre eles incluir o StoryBook, AWS S3 Local Bucket, Upload de Imagem, Deshboard com Métricas e gráficos, incluindo as integração de edit, delete, update e create em algumas partes.
 
-# Para rodar o projeto em localhost:
+# Para rodar o projeto em localhost via Docker:
 
 ```bash
   docker-compose build
@@ -17,6 +19,9 @@
   docker exec -it {NOME_DO_CONTAINER_BACKEND} yarn ts-node --require tsconfig-paths/register src/shared/seed/seed.ts
 ```
 
+#### o frontend rodará em http://localhost:3003
+
+#### o backend rodará em http://localhost:3000
 ---
 
 #### o frontend rodará em http://localhost:3003

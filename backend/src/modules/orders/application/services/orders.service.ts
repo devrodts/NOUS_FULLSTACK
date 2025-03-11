@@ -13,11 +13,11 @@ export class OrdersService {
     try {
       const orderData = {
         ...dto,
-        id: uuidv4(), // Generate a new UUID for the order ID
-        date: new Date(), // Set the current date
-        created_at: new Date(), // Set created_at to the current date
-        updated_at: new Date(), // Set updated_at to the current date
-        productsIds: dto.productsIds || [], // Garante que productsIds seja um array
+        id: uuidv4(),
+        date: new Date(),
+        created_at: new Date(),
+        productsIds: dto.productsIds || [],
+        updated_at: new Date(),
       };
       const newOrder = await this.ordersRepository.createOrder(orderData);
       return newOrder;

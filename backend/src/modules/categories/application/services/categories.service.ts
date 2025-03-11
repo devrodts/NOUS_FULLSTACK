@@ -10,7 +10,7 @@ export class CategoriesService {
 
   async createCategory(dto: CreateCategoryDTO) {
     try {
-      return this.categoriesRepository.createCategory({...dto, id: uuidv4()});
+      return this.categoriesRepository.createCategory({ ...dto, id: uuidv4() });
     } catch (error) {
       console.log('Create Category Service ::::::::::: ', error);
       throw error;
